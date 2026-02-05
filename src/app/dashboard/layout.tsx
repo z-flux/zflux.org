@@ -9,11 +9,11 @@ export default async function DashboardLayout({ children }:Readonly<{
 
   
 const session = await getServerSession(AuthOptions)
-if(session?.user?.is_super_admin){
+if(session?.user?.is_super_admin&&session.user.company_id==null){
 return (
     <div className="">
       <NavBarWSideBar />
-      <main className="">{children}</main>
+      <main className="sm:ms-64 mt-16 ">{children}</main>
     </div>
   )
 }else{

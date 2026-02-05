@@ -1,7 +1,9 @@
 'use client'
 import { langContext } from '@/lang.context'
 import { ThemeContext } from '@/theme.context'
-import React, { useContext, useState } from 'react'
+import { useContext, useState } from 'react'
+import logo from '../../../assets/zfluxLogotrying-01.png'
+import darkLogo from '../../../assets/zfluxLogoPLSNOMOREpng-01.png'
 import SideBar from './SideBar'
 import Content from './Content'
 

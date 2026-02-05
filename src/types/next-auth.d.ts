@@ -7,7 +7,8 @@ declare module "next-auth" {
         id: number,
         name: string,
         email: string,
-        is_super_admin:boolean
+        is_super_admin:boolean,
+        company_id:number|null
         },
         token:string,
         expiresAt:number
@@ -26,6 +27,7 @@ declare module "next-auth/jwt" {
       name: string 
       email: string 
       is_super_admin:boolean
+      company_id:number|null
     }
     token?: string
     expiresAt?: number
