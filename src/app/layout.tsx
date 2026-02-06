@@ -5,6 +5,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css'
 import LangContextProvider from "@/lang.context";
 import ThemeContextProvider from "@/theme.context";
 import { Toaster } from "react-hot-toast";
+import Providers from "@/Providers/QueryProvider";
 
 
 
@@ -36,7 +37,9 @@ export default function RootLayout({
         <ThemeContextProvider>
         <LangContextProvider>
           <Toaster/>
+          <Providers>
         {children}
+        </Providers>
         </LangContextProvider>
         </ThemeContextProvider>
       </body>

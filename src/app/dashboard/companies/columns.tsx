@@ -5,9 +5,10 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Company } from "@/interfaces/company"
 import { ColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown } from "lucide-react"
+import PopUpMessage from "./_Components/PopUpMessage"
+import UpdateCompany from "./_Components/UpdateCompany"
 
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
+
 
 
 export const columns: ColumnDef<Company>[] = [
@@ -67,9 +68,9 @@ export const columns: ColumnDef<Company>[] = [
  
       return (
         <div className="flex justify-between items-center ">
-            <i className="cursor-pointer text-lg fa-solid fa-pen text-yellow-400"></i>
-            <i className="cursor-pointer text-lg fa-regular fa-trash-can text-red-600"></i>
-            <i className="cursor-pointer text-lg fa-regular fa-eye text-green-600"></i>
+            <UpdateCompany id={company.id}></UpdateCompany>
+            <PopUpMessage id={company.id}></PopUpMessage>
+            <Button variant={'ghost'}><i className="cursor-pointer text-lg fa-regular fa-eye text-green-600"></i></Button>
         </div>
       )
     },

@@ -41,7 +41,7 @@ export function DataTable<TData, TValue>({
       const [columnVisibility, setColumnVisibility] =useState<VisibilityState>({})
       const [rowSelection, setRowSelection] = useState({})
   const table = useReactTable({
-    data:data ?? [],
+    data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
@@ -99,7 +99,7 @@ export function DataTable<TData, TValue>({
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-    <div className="overflow-hidden rounded-md border">
+    <div className="overflow-visible relative rounded-md border">
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
