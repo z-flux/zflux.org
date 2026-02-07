@@ -8,7 +8,6 @@ export default function SideBar({open}:{open:boolean}) {
  <aside hidden={open} className="bg-gray-200 dark:bg-[#1D1D1D] fixed top-0 left-0 rtl:right-0 z-50 w-40 h-full " aria-label="Sidebar">
     <div className="h-full px-3 py-4 overflow-y-auto bg-neutral-primary-soft border-e rtl:border-s border-gray-400">
       {/* <p className="flex items-center ps-2.5 mb-5">
-        
         <span className="self-center text-4xl font-semibold text-black dark:text-gray-100 text-heading whitespace-nowrap">Z-Flux</span>
       </p> */}
       <ul className="space-y-2 text-black dark:text-gray-300 font-medium ">
