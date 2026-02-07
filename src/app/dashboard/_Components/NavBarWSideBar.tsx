@@ -31,7 +31,7 @@ function toggleSideBar(){
 }    
   return (
     <div>
-  <nav className="bg-gray-200 dark:bg-darkBack fixed top-0 z-50 w-full bg-neutral-primary-soft border-b border-gray-400">
+  <nav className="bg-transparent fixed top-0 z-50 w-full bg-neutral-primary-soft ">
     <div className="px-3 py-3 lg:px-5 lg:pl-3">
       <div className="flex items-center justify-between">
         <div className="flex items-center justify-start rtl:justify-end">
@@ -47,10 +47,10 @@ function toggleSideBar(){
         </div>
         <div className="flex items-center">
           <div className="flex items-center gap-4 ms-4">
-            <i className={`cursor-pointer text-2xl fa-regular text-black dark:text-gray-300 ${theme=='dark'?'fa-sun':'fa-moon'}`} onClick={()=>toggleTheme()}></i>
+            <i className={`cursor-pointer text-xl fa-regular text-black dark:text-gray-300 ${theme=='dark'?'fa-sun':'fa-moon'}`} onClick={()=>toggleTheme()}></i>
     <div onClick={()=>toggleLang()} className='flex gap-2 text-black dark:text-gray-300 items-center border rounded-full py-1 px-2 cursor-pointer'>
-        <i className='fa-solid fa-globe'></i>
-        <p className='font-bold text-lg'>{lang=='ar'?'EN':'AR'}</p>
+        <i className='fa-solid fa-globe '></i>
+        <p className='font-bold '>{lang=='ar'?'EN':'AR'}</p>
     </div>
           </div>
         </div>

@@ -5,14 +5,13 @@ import { QueryClient, useMutation, useQueryClient } from '@tanstack/react-query'
 import React from 'react'
 import { deleteCompany } from '../_Actions/deleteCompany'
 
-export default function PopUpMessage({id}:{id:number}) {
-  const queryClient = useQueryClient()
-  const {data,mutate,isPending} = useMutation({mutationFn:deleteCompany,mutationKey:['companies']})
-     queryClient.invalidateQueries({queryKey:['companies']})
+export default function PopUpMessage({onConfirm}:{onConfirm:()=>void}) {
+  
+     
   return (
     <AlertDialog>
   <AlertDialogTrigger asChild>
-    <Button variant={'ghost'} ><i className="cursor-pointer text-lg fa-regular fa-trash-can text-red-600"></i></Button>
+    <button  ><i className="cursor-pointer text-lg fa-regular fa-trash-can text-red-600"></i></button>
     
   </AlertDialogTrigger>
   <AlertDialogContent className='z-50'>
@@ -25,7 +24,7 @@ export default function PopUpMessage({id}:{id:number}) {
     </AlertDialogHeader>
     <AlertDialogFooter>
       <AlertDialogCancel>Cancel</AlertDialogCancel>
-      <AlertDialogAction onClick={()=>mutate({id})}>{isPending?<i className='tinyLoaderColored'></i>: 'Continue'}</AlertDialogAction>
+      <AlertDialogAction onClick={onConfirm}>Continue</AlertDialogAction>
     </AlertDialogFooter>
   </AlertDialogContent>
 </AlertDialog>

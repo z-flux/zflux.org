@@ -11,7 +11,7 @@ import UpdateCompany from "./_Components/UpdateCompany"
 
 
 
-export const columns: ColumnDef<Company>[] = [
+export const columns=(deleteMutation:any) : ColumnDef<Company>[] => [
    {
     id: "select",
     header: ({ table }) => (
@@ -69,8 +69,8 @@ export const columns: ColumnDef<Company>[] = [
       return (
         <div className="flex justify-between items-center ">
             <UpdateCompany id={company.id}></UpdateCompany>
-            <PopUpMessage id={company.id}></PopUpMessage>
-            <Button variant={'ghost'}><i className="cursor-pointer text-lg fa-regular fa-eye text-green-600"></i></Button>
+            <PopUpMessage  onConfirm={()=>deleteMutation.mutate({ id: row.original.id })}></PopUpMessage>
+            <button ><i className="cursor-pointer text-lg fa-regular fa-eye text-green-600"></i></button>
         </div>
       )
     },

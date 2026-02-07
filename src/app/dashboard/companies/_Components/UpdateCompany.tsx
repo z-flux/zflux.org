@@ -33,7 +33,7 @@ export default function UpdateCompany({id}:{id:number}) {
   return (
     <AlertDialog>
   <AlertDialogTrigger asChild>
-    <Button variant={'ghost'}><i className="cursor-pointer text-lg fa-solid fa-pen text-yellow-400"></i></Button >
+    <button ><i className="cursor-pointer text-lg fa-solid fa-pen text-yellow-400"></i></button >
     
   </AlertDialogTrigger>
   <AlertDialogContent className='z-50'>
