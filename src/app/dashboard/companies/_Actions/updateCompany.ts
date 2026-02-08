@@ -5,7 +5,7 @@ import { json } from "zod"
 export interface data{
     name: string,
     subscriptionPlan: string,
-    maxUsers: number
+    maxUsers: string
 
 }
 

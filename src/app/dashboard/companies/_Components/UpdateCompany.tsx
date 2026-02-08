@@ -10,30 +10,34 @@ import { Input } from '@/components/ui/input'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { update, UpdateScheme } from '@/schemas/updatecompanySchema'
+import { Company } from '@/interfaces/company';
 
-export default function UpdateCompany({id}:{id:number}) {
+export default function UpdateCompany({company}:{company:Company}) {
+  const id = company.id
     const form = useForm<UpdateScheme>({
         resolver: zodResolver(update),
         defaultValues: {
-          name: '',
-          subscriptionPlan: '',
-          maxUsers: 0
+          name: company.name,
+          subscriptionPlan: company.subscription_plan,
+          maxUsers: company.max_users
         },
       });
       const [formData,setFormData]=useState<data>()
   const queryClient = useQueryClient()
-  const {mutate,isPending,data:mutateData} = useMutation({mutationFn:updateCompany,mutationKey:['companies']})
-     queryClient.invalidateQueries({queryKey:['companies']})
+  const {mutate,isPending} = useMutation({mutationFn:updateCompany,mutationKey:['companies'],onSuccess:()=>{
+    queryClient.invalidateQueries({queryKey:['companies']})
+  }})
+     
 
      async function onSubmit(data:UpdateScheme){
         setFormData(data)
      }
-     console.log(mutateData);
+
      
   return (
     <AlertDialog>
   <AlertDialogTrigger asChild>
-    <button ><i className="cursor-pointer text-lg fa-solid fa-pen text-yellow-400"></i></button >
+    <button><i className="cursor-pointer text-sm fa-solid fa-pen hover:text-yellow-400 transition duration-100"></i></button >
     
   </AlertDialogTrigger>
   <AlertDialogContent className='z-50'>
@@ -53,6 +57,7 @@ export default function UpdateCompany({id}:{id:number}) {
                     className=""
                     placeholder=""
                     {...field}
+                    
                   />
                 </FormControl>
                 {form.formState.errors.name && (

@@ -19,25 +19,12 @@ const fetchCompanies = useCallback(async () => {
   const { data, isLoading } = useQuery<Companies>({
     queryKey: ['companies'],
     queryFn: fetchCompanies,
-    staleTime: 60_000,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
+   
   })
 
-  const deleteMutation = useMutation({
-  mutationFn: deleteCompany,
-  onSuccess: (_, variables) => {
-    queryClient.setQueryData<Companies>(['companies'], oldData => ({
-      ...oldData!,
-      data: oldData!.data.filter(c => c.id !== variables.id),
-    }))
-  },
-})
 
- const memoColumns = useMemo(
-  () => columns(deleteMutation.mutate),
-  [deleteMutation.mutate]
-)
+
+
 
   return (
     <div className="min-h-screen">
@@ -47,7 +34,7 @@ const fetchCompanies = useCallback(async () => {
             <span className="loader"></span>
           </div>
         ) : (
-          <DataTable columns={memoColumns} data={data!.data} />
+          <DataTable columns={columns} data={data!.data} />
         )}
       </div>
     </div>

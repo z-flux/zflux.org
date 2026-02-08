@@ -120,7 +120,7 @@ export function DataTable<TData, TValue>({
           ))}
         </TableHeader>
         <TableBody>
-          {table.getRowModel().rows.length ? (
+          {table?.getRowModel().rows.length ? (
             table.getRowModel().rows.map((row) => (
               <TableRow
                 key={row.id}
@@ -143,7 +143,7 @@ export function DataTable<TData, TValue>({
         </TableBody>
       </Table>
     </div>
-    <div className="flex justify-between items-center">
+    <div className="flex mt-4 justify-between items-center">
         
 <DataTablePagination table={table}></DataTablePagination>
       </div>
