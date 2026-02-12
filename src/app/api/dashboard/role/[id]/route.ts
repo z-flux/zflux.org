@@ -1,12 +1,12 @@
 import { getToken } from 'next-auth/jwt'
 import { NextRequest, NextResponse } from 'next/server'
 
-export async function GET(req: NextRequest) {
+export async function GET(req: NextRequest,context: { params: Promise<{ id: string }> }) {
   const token = await getToken({
     req,
     secret: process.env.NEXTAUTH_SECRET,
   })
-
+const { id } = await context.params
   if (!token?.token) {
     return NextResponse.json(
       { error: 'Unauthorized' },
@@ -14,9 +14,9 @@ export async function GET(req: NextRequest) {
     )
   }
 
-  const res = await fetch('https://api.zflux.org/api/dashboard/companies', {
+  const res = await fetch(`https://api.zflux.org/api/dashboard/roles/${id}`, {
     headers: {
-      Authorization: `Bearer ${token.token}`,
+      Authorization: `Bearer ${token.token}`
     },
   })
 

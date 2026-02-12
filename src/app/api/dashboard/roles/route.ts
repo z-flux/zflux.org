@@ -14,9 +14,9 @@ export async function GET(req: NextRequest) {
     )
   }
 
-  const res = await fetch('https://api.zflux.org/api/dashboard/companies', {
+  const res = await fetch('https://api.zflux.org/api/dashboard/roles', {
     headers: {
-      Authorization: `Bearer ${token.token}`,
+      Authorization: `Bearer ${token.token}`
     },
   })
 

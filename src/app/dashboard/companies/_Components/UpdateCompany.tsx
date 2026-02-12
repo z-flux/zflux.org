@@ -5,7 +5,6 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import {Form,FormControl,FormField,FormItem,FormLabel,FormMessage,} from "@/components/ui/form";
 import React, { useState } from 'react'
 import { data, updateCompany } from '../_Actions/updateCompany'
-import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -19,18 +18,21 @@ export default function UpdateCompany({company}:{company:Company}) {
         defaultValues: {
           name: company.name,
           subscriptionPlan: company.subscription_plan,
-          maxUsers: company.max_users
+          maxUsers: Number(company.max_users)
         },
       });
-      const [formData,setFormData]=useState<data>()
+     
   const queryClient = useQueryClient()
-  const {mutate,isPending} = useMutation({mutationFn:updateCompany,mutationKey:['companies'],onSuccess:()=>{
+  const {mutate,isPending} = useMutation({mutationFn:updateCompany,mutationKey:['companies'],onSuccess:(data)=>{
+    console.log(data);
+    
     queryClient.invalidateQueries({queryKey:['companies']})
   }})
      
 
      async function onSubmit(data:UpdateScheme){
-        setFormData(data)
+        mutate({id,data})
+       
      }
 
      
@@ -41,20 +43,22 @@ export default function UpdateCompany({company}:{company:Company}) {
     
   </AlertDialogTrigger>
   <AlertDialogContent className='z-50'>
+    
     <AlertDialogHeader>
       <AlertDialogTitle>Updating Company Data</AlertDialogTitle>
+        </AlertDialogHeader>
         <Form {...form}>
-        <form className="w-full " onSubmit={form.handleSubmit(onSubmit)}>
+        <form className="w-[95%] mx-auto " onSubmit={form.handleSubmit(onSubmit)}>
           <FormField
             control={form.control}
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className='' >Name:</FormLabel>
+                <FormLabel className='mb-1' >Name:</FormLabel>
                 <FormControl>
                   <Input
                   
-                    className=""
+                    className="mb-2"
                     placeholder=""
                     {...field}
                     
@@ -77,10 +81,10 @@ export default function UpdateCompany({company}:{company:Company}) {
             name="subscriptionPlan"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className='' >subscriptionPlan:</FormLabel>
+                <FormLabel className='mb-1' >subscriptionPlan:</FormLabel>
                 <FormControl>
                   <Input type="text"
-                    className=""
+                    className="mb-2"
                     placeholder=""
                     {...field}
                   />
@@ -101,13 +105,14 @@ export default function UpdateCompany({company}:{company:Company}) {
             name="maxUsers"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className='' >Maximum users:</FormLabel>
+                <FormLabel className='mb-1' >Maximum users:</FormLabel>
                 <FormControl>
                   <Input
                   
-                    className=" "
+                    className="mb-2"
                     placeholder=""
                     {...field}
+                    onChange={(e) => field.onChange(Number(e.target.value))}
                   />
                 </FormControl>
                 {form.formState.errors.maxUsers && (
@@ -122,15 +127,16 @@ export default function UpdateCompany({company}:{company:Company}) {
             )}
           />
         
-        </form>
+        
+      
+    
+    <AlertDialogFooter className='mt-4'>
+      <AlertDialogCancel type='button'>Cancel</AlertDialogCancel>
+      <AlertDialogAction type='submit'>{isPending?<i className='tinyLoaderColored'></i>: 'Update'}</AlertDialogAction>
+    </AlertDialogFooter>
+    </form>
         
       </Form>
-      
-    </AlertDialogHeader>
-    <AlertDialogFooter>
-      <AlertDialogCancel>Cancel</AlertDialogCancel>
-      <AlertDialogAction onClick={()=>mutate({id,data:formData!})}>{isPending?<i className='tinyLoaderColored'></i>: 'Update'}</AlertDialogAction>
-    </AlertDialogFooter>
   </AlertDialogContent>
 </AlertDialog>
   )

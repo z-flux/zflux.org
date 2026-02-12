@@ -4,17 +4,16 @@ import GetAuthToken from "@/GetAuthToken"
 
 export interface data{
     name: string,
-    subscriptionPlan: string,
-    maxUsers: number
+    permissions:string[]
 
 }
 
-export async function updateCompany({id,data}:{id:number,data:data}){
+export async function updateRole({id,data}:{id:number,data:data}){
     const token = await GetAuthToken()
     if(!token){
         throw new Error('Unauthorized!')
     }
-    const res = await fetch(`${process.env.API}/dashboard/companies/${id}`,{
+    const res = await fetch(`${process.env.API}/dashboard/roles/${id}`,{
         method:'PUT',
         headers:{
             Authorization:`Bearer ${token}`,

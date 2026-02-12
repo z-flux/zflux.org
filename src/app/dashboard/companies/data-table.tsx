@@ -63,13 +63,14 @@ export function DataTable<TData, TValue>({
     <div>
         <div className="flex items-center py-4">
         <Input
-          placeholder="Filter Company Names..."
+          placeholder="Filter By Name..."
           value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn("name")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
+        
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
@@ -98,6 +99,7 @@ export function DataTable<TData, TValue>({
               })}
           </DropdownMenuContent>
         </DropdownMenu>
+        
       </div>
     <div className="overflow-visible relative rounded-md border">
       <Table>
@@ -120,7 +122,7 @@ export function DataTable<TData, TValue>({
           ))}
         </TableHeader>
         <TableBody>
-          {table?.getRowModel().rows.length ? (
+          {table?.getRowModel()?.rows?.length ? (
             table.getRowModel().rows.map((row) => (
               <TableRow
                 key={row.id}

@@ -11,19 +11,26 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar"
-import {  ChevronLeft, ChevronRight, User2 } from "lucide-react"
+import {  ChevronLeft, ChevronRight, LogOut } from "lucide-react"
 import Link from "next/link"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible"
 import { useContext } from "react"
 import { langContext } from "@/lang.context"
+import darklogo from '../assets/light.svg'
+import lightlogo from '../assets/zfluxdarkLogo.svg'
+import Image from "next/image"
+import { ThemeContext } from "@/theme.context"
+import { signOut } from "next-auth/react"
 
 export function AppSidebar() {
   const myLang = useContext(langContext)!
       const {lang} = myLang
+      const mytheme=useContext(ThemeContext)!
+          const {theme}=mytheme
   return (
     <Sidebar  side={lang === 'ar' ? 'right' : 'left'}  className="w-60">
       <SidebarHeader>
-
+<Image alt='' className="w-[40%] me-auto mt-4" src={theme=='dark'? darklogo:lightlogo} />
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
@@ -58,19 +65,19 @@ export function AppSidebar() {
             
           <SidebarMenuSubItem>
             <SidebarMenuSubButton asChild>
-              <Link href="/dashboard">Users</Link>
+              <Link href="/dashboard/users">Users</Link>
             </SidebarMenuSubButton>
           </SidebarMenuSubItem>
 
           <SidebarMenuSubItem>
             <SidebarMenuSubButton asChild>
-              <Link href="/dashboard">Roles</Link>
+              <Link href="/dashboard/roles">Roles</Link>
             </SidebarMenuSubButton>
           </SidebarMenuSubItem>
 
           <SidebarMenuSubItem>
             <SidebarMenuSubButton asChild>
-              <Link href="/dashboard">Permissions</Link>
+              <Link href="/dashboard/permissions">Permissions</Link>
             </SidebarMenuSubButton>
           </SidebarMenuSubItem>
         </SidebarMenuSub>
@@ -86,8 +93,8 @@ export function AppSidebar() {
        <SidebarFooter>
     <SidebarMenu>
       <SidebarMenuItem>
-        <SidebarMenuButton>
-          <User2 /> Username
+        <SidebarMenuButton onClick={async()=>await signOut() }>
+          <LogOut  /> Sign out
         </SidebarMenuButton>
       </SidebarMenuItem>
     </SidebarMenu>
