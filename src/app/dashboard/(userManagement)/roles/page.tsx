@@ -6,6 +6,7 @@ import {  useQuery } from '@tanstack/react-query'
 import { DataTable } from '../../companies/data-table'
 import { Roles } from '@/interfaces/role'
 import { columns } from './columns'
+import CreateRole from './_Components/CreateRole'
 
 
 
@@ -32,8 +33,15 @@ const fetchRoles = async () => {
           <div className="min-h-screen -mt-4 flex justify-center items-center">
             <span className="loader"></span>
           </div>
-        ) : (
-          <DataTable columns={columns} data={data!.data} />
+        ) : (<>
+                <div className='w-full'>
+                  <div className='w-1/9 ml-auto'>
+                    <CreateRole></CreateRole>
+                  </div>
+                  
+                  </div>
+                  <DataTable columns={columns} data={data!.data} />
+                  </>
         )}
       </div>
     </div>
