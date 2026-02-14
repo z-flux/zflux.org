@@ -101,8 +101,8 @@ export function DataTable<TData, TValue>({
         </DropdownMenu>
         
       </div>
-    <div className="overflow-visible relative rounded-md border">
-      <Table>
+    <div className="w-full overflow-x-auto rounded-md border">
+      <Table className="min-w-max">
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>

@@ -2,17 +2,18 @@
 
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Role } from "@/interfaces/role"
+import { Branch } from "@/interfaces/branch"
 import { ColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown } from "lucide-react"
-import PermissionsPopUp from "./_Components/PermissionsPopUp"
 import PopUpMessage from "./_Components/PopUpMessage"
-import UpdateRolePermissions from "./_Components/UpdateRolePermissions"
+import UpdateBranch from "./_Components/UpdateBranch"
 
 
 
 
-export const columns : ColumnDef<Role>[] = [
+
+
+export const columns : ColumnDef<Branch>[] = [
    {
     id: "select",
     header: ({ table }) => (
@@ -40,6 +41,10 @@ export const columns : ColumnDef<Role>[] = [
     header: "Id",
   },
   {
+    accessorKey: "company_id",
+    header: "Company Id",
+  },
+  {
     accessorKey: "name",
     header: ({ column }) => {
       return (
@@ -48,48 +53,48 @@ export const columns : ColumnDef<Role>[] = [
           className="font-semibold"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Role Name
+          Branch Name
           <ArrowUpDown className="ml-2 h-4 w-4 " />
         </Button>
       )
     },
   },
- {
-  accessorKey: "created_at",
-  header: "Created At",
-  cell: ({ getValue }) => {
-    const value = getValue<string>()
-    return new Intl.DateTimeFormat("en-US", {
-      dateStyle: "medium",
-      timeStyle: "short",
-    }).format(new Date(value))
+  {
+    accessorKey: "email",
+    header: "Email",
   },
-},
-{
-  accessorKey: "updated_at",
-  header: "Last Updated",
-  cell: ({ getValue }) => {
-    const value = getValue<string>()
-    return new Intl.DateTimeFormat("en-US", {
-      dateStyle: "medium",
-      timeStyle: "short",
-    }).format(new Date(value))
+  {
+    accessorKey: "phone",
+    header: "Phone Number",
   },
-},
- {
+  {
+    accessorKey: "status",
+    header: "Status",
+  },
+  {
+    accessorKey: "address",
+    header: "Address",
+  },
+  {
+    accessorKey: "manager_name",
+    header: "Manager Name ",
+  },
+  {
+    accessorKey: "manager_phone",
+    header: "Manager Phone ",
+  },
+  {
     id: "actions",
     cell: ({ row }) => {
-      const role = row.original
+      const branch = row.original
  
       return (
         <div className="flex gap-4  items-center me-4">
-          <UpdateRolePermissions role={role}></UpdateRolePermissions>
-            <PopUpMessage id={role.id}></PopUpMessage>
-            <PermissionsPopUp role={role}></PermissionsPopUp>
+          <UpdateBranch branch={branch}></UpdateBranch>
+            <PopUpMessage id={branch.id}></PopUpMessage>
+            <button><i className="cursor-pointer text-sm  fa-regular fa-eye font-thin hover:text-green-600 transition duration-100"></i></button>
         </div>
       )
     },
   },
-
-  
 ]

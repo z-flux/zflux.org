@@ -72,7 +72,7 @@ export const columns : ColumnDef<Company>[] = [
       const company = row.original
  
       return (
-        <div className="flex justify-between items-center me-4">
+        <div className="flex gap-4  items-center me-4">
             <UpdateCompany company={company}></UpdateCompany>
             <PopUpMessage  id={company.id}></PopUpMessage>
             <button ><i className="cursor-pointer text-sm  fa-regular fa-eye font-thin hover:text-green-600 transition duration-100"></i></button>

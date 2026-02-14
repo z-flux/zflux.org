@@ -85,6 +85,14 @@ export function AppSidebar() {
             </SidebarMenuItem>
           </Collapsible>
 
+      <SidebarMenuItem>
+    <SidebarMenuButton asChild>
+      <Link href="/dashboard/branches">
+        <span>Branches</span>
+      </Link>
+    </SidebarMenuButton>
+  </SidebarMenuItem>    
+
 </SidebarMenu>
 
         </SidebarGroup>

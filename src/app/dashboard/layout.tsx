@@ -18,7 +18,7 @@ return (
       <NavBarWSideBar />
       
       <SidebarClientLayout>
-      <main className="w-full my-10">
+      <main className="flex-1 min-w-0 my-10">
        
         {children}
       </main>

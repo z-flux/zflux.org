@@ -8,6 +8,7 @@ import { ColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown } from "lucide-react"
 import UpdateUser from "./_Components/UpdateUser"
 import PopUpMessage from "./_Components/PopUpMessage"
+import RolesPopUp from "./_Components/RolesPopUp"
 
 
 
@@ -86,10 +87,10 @@ export const columns : ColumnDef<User>[] = [
       const user = row.original
  
       return (
-        <div className="flex justify-between items-center me-4">
+        <div className="flex gap-4  items-center me-4">
             <UpdateUser user={user}></UpdateUser>
             <PopUpMessage id={user.id}></PopUpMessage>
-            <button ><i className="cursor-pointer text-sm  fa-regular fa-eye font-thin hover:text-green-600 transition duration-100"></i></button>
+            <RolesPopUp user={user}></RolesPopUp>
         </div>
       )
     },
