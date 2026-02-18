@@ -7,6 +7,8 @@ export async function deleteUser({id}:{id:number}){
     if(!token){
         throw new Error('Unauthorized!')
     }
+    console.log("API:", process.env.NEXT_PUBLIC_API)
+console.log("Deleting ID:", id)
     const res = await fetch(`${process.env.NEXT_PUBLIC_API}/dashboard/users/${id}`,{
         method:'DELETE',
         headers:{
