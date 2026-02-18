@@ -14,7 +14,7 @@ export async function updateUser({id,data}:{id:number,data:data}){
     if(!token){
         throw new Error('Unauthorized!')
     }
-    const res = await fetch(`${process.env.API}/dashboard/users/${id}`,{
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API}/dashboard/users/${id}`,{
         method:'PUT',
         headers:{
             Authorization:`Bearer ${token}`,

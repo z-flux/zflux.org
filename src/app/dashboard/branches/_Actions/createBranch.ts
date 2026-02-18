@@ -12,7 +12,7 @@ export async function createBranch({Cdata}:{Cdata:BranchSchema}){
   ...Cdata,
   settings: Object.fromEntries(Cdata.settings.map(s => [s.key, s.value])),
 }
-    const res = await fetch(`${process.env.API}/dashboard/branches`,{
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API}/dashboard/branches`,{
         method:'POST',
         headers:{
             Authorization:`Bearer ${token}`,

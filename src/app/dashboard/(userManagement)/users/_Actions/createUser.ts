@@ -12,7 +12,7 @@ export async function createUser({Cdata}:{Cdata:UserSchema}){
   ...Cdata,
   settings: Object.fromEntries(Cdata.settings.map(s => [s.key, s.value])),
 }
-    const res = await fetch(`${process.env.API}/dashboard/users`,{
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API}/dashboard/users`,{
         method:'POST',
         headers:{
             Authorization:`Bearer ${token}`,

@@ -7,7 +7,7 @@ export async function deleteRole({id}:{id:number}){
     if(!token){
         throw new Error('Unauthorized!')
     }
-    const res = await fetch(`${process.env.API}/dashboard/roles/${id}`,{
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API}/dashboard/roles/${id}`,{
         method:'DELETE',
         headers:{
             Authorization:`Bearer ${token}`,

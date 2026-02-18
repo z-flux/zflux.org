@@ -13,7 +13,7 @@ export async function createRole({data}:{data:data}){
     if(!token){
         throw new Error('Unauthorized!')
     }
-    const res = await fetch(`${process.env.API}/dashboard/roles`,{
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API}/dashboard/roles`,{
         method:'POST',
         headers:{
             Authorization:`Bearer ${token}`,

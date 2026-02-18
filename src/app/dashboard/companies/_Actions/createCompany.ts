@@ -12,7 +12,7 @@ export async function createCompany({Cdata}:{Cdata:CompanyFormValues}){
   ...Cdata,
   settings: Object.fromEntries(Cdata.settings.map(s => [s.key, s.value])),
 }
-    const res = await fetch(`${process.env.API}/dashboard/companies`,{
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API}/dashboard/companies`,{
         method:'POST',
         headers:{
             Authorization:`Bearer ${token}`,

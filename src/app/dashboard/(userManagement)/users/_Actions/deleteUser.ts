@@ -7,7 +7,7 @@ export async function deleteUser({id}:{id:number}){
     if(!token){
         throw new Error('Unauthorized!')
     }
-    const res = await fetch(`${process.env.API}/dashboard/users/${id}`,{
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API}/dashboard/users/${id}`,{
         method:'DELETE',
         headers:{
             Authorization:`Bearer ${token}`,
