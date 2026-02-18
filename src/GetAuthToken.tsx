@@ -1,12 +1,36 @@
-import { decode } from 'next-auth/jwt'
-import { cookies } from 'next/headers'
-import React from 'react'
+import { decode } from "next-auth/jwt";
+import { cookies } from "next/headers";
 
-export default async function GetAuthToken() {
-    const Cookies = await cookies()
-    const token = Cookies.get('next-auth.session-token')
-    const decoded = await decode({token:token?.value,secret:process.env.NEXTAUTH_SECRET!})
-  return (
-    decoded?.token
-  )
+export default async function GetTokenAuth() {
+  const cookieStore = cookies();
+  console.log("All cookies:", (await cookieStore).getAll());
+
+  const possibleNames = [
+    "next-auth.session-token",
+    "__Secure-next-auth.session-token",
+  ];
+
+  let authToken: string | undefined;
+
+  for (const name of possibleNames) {
+    const c = (await cookieStore).get(name);
+    if (c) {
+      authToken = c.value;
+      console.log(`Using cookie: ${name}`);
+      break;
+    }
+  }
+
+  if (!authToken) return null;
+
+  try {
+    const token = await decode({
+      token: authToken,
+      secret: process.env.AUTH_SECRET!,
+    });
+    return token?.token ?? null;
+  } catch (e) {
+    console.error("Failed to decode token:", e);
+    return null;
+  }
 }
