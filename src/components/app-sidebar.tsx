@@ -30,7 +30,9 @@ export function AppSidebar() {
   return (
     <Sidebar  side={lang === 'ar' ? 'right' : 'left'}  className="w-60">
       <SidebarHeader>
-<Image alt='' className="w-[40%] me-auto mt-4" src={theme=='dark'? darklogo:lightlogo} />
+        <Link href="/dashboard">
+        <Image alt='' className="w-[40%] me-auto mt-4" src={theme=='dark'? darklogo:lightlogo} />
+        </Link>
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
@@ -100,7 +102,13 @@ export function AppSidebar() {
       </Link>
     </SidebarMenuButton>
   </SidebarMenuItem> 
-
+<SidebarMenuItem>
+    <SidebarMenuButton asChild>
+      <Link href="/dashboard/subcategories">
+        <span>SubCategories</span>
+      </Link>
+    </SidebarMenuButton>
+  </SidebarMenuItem> 
   <SidebarMenuItem>
     <SidebarMenuButton asChild>
       <Link href="/dashboard/customers">
@@ -116,6 +124,29 @@ export function AppSidebar() {
     </SidebarMenuButton>
   </SidebarMenuItem> 
 
+<SidebarMenuItem>
+    <SidebarMenuButton asChild>
+      <Link href="/dashboard/products">
+        <span>Products</span>
+      </Link>
+    </SidebarMenuButton>
+  </SidebarMenuItem> 
+
+  <SidebarMenuItem>
+    <SidebarMenuButton asChild>
+      <Link href="/dashboard/stocks">
+        <span>Stocks</span>
+      </Link>
+    </SidebarMenuButton>
+  </SidebarMenuItem>
+
+    <SidebarMenuItem>
+    <SidebarMenuButton asChild>
+      <Link href="/dashboard/shifts">
+        <span>Shifts</span>
+      </Link>
+    </SidebarMenuButton>
+  </SidebarMenuItem>
 </SidebarMenu>
 
         </SidebarGroup>
