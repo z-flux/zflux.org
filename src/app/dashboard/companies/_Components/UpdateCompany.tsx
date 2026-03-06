@@ -23,8 +23,7 @@ export default function UpdateCompany({company}:{company:Company}) {
       });
      
   const queryClient = useQueryClient()
-  const {mutate,isPending} = useMutation({mutationFn:updateCompany,mutationKey:['companies'],onSuccess:(data)=>{
-    console.log(data);
+  const {mutate,isPending} = useMutation({mutationFn:updateCompany,mutationKey:['companies'],onSuccess:()=>{
     
     queryClient.invalidateQueries({queryKey:['companies']})
   }})

@@ -33,25 +33,18 @@ export default function AddUser() {
 })
 const [open, setOpen] = React.useState(false)
 const queryClient = useQueryClient()
-const {mutate,data:m} =useMutation({mutationFn:createUser,mutationKey:['users'],onSuccess:()=>{
-  queryClient.invalidateQueries({queryKey:['users']})
-}})
+const {mutate} =useMutation({mutationFn:createUser,mutationKey:['users']})
 
 const { fields, append, remove } = useFieldArray({
   control: form.control,
   name: "settings",
 })
-console.log(form.formState.errors);
 
 const onSubmit = (data: UserSchema) => {
-  console.log("SUBMIT FIRED")
   mutate({ Cdata: data },{onSuccess:()=>{
     queryClient.invalidateQueries({ queryKey: ['users'] })
         setOpen(false)
   }})
-  console.log(m);
-  
-  console.log(data)
 }
 
 

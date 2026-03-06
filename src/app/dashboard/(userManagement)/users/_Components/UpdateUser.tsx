@@ -26,16 +26,13 @@ export default function UpdateUser({user}:{user:User}) {
       });
      
   const queryClient = useQueryClient()
-  const {mutate,isPending} = useMutation({mutationFn:updateUser,mutationKey:['users'],onSuccess:(data)=>{
-    console.log(data);
-    
+  const {mutate,isPending} = useMutation({mutationFn:updateUser,mutationKey:['users'],onSuccess:()=>{
     queryClient.invalidateQueries({queryKey:['users']})
   }})
      
 
      async function onSubmit(data:UpdateUserScheme){
         const ready = {...data,salary:parseFloat(data.salary)}
-        console.log(ready);
         
         mutate({id,data:ready},{onSuccess:()=>{
             setOpen(false)

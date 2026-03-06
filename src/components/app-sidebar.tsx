@@ -93,6 +93,29 @@ export function AppSidebar() {
     </SidebarMenuButton>
   </SidebarMenuItem>    
 
+  <SidebarMenuItem>
+    <SidebarMenuButton asChild>
+      <Link href="/dashboard/categories">
+        <span>Categories</span>
+      </Link>
+    </SidebarMenuButton>
+  </SidebarMenuItem> 
+
+  <SidebarMenuItem>
+    <SidebarMenuButton asChild>
+      <Link href="/dashboard/customers">
+        <span>Customers</span>
+      </Link>
+    </SidebarMenuButton>
+  </SidebarMenuItem> 
+  <SidebarMenuItem>
+    <SidebarMenuButton asChild>
+      <Link href="/dashboard/orders">
+        <span>Orders</span>
+      </Link>
+    </SidebarMenuButton>
+  </SidebarMenuItem> 
+
 </SidebarMenu>
 
         </SidebarGroup>

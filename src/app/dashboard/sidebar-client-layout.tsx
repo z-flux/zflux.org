@@ -11,7 +11,7 @@ export default function SidebarClientLayout({
   return (
     <SidebarProvider>
       <AppSidebar />
-        <SidebarTrigger className="z-50"/>
+        <SidebarTrigger className="ml-2 z-50"/>
         {children}
     </SidebarProvider>
   )

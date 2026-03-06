@@ -1,17 +1,18 @@
 'use client'
 
-import { DataTable } from './data-table'
-import { columns } from './columns'
-import { Companies } from '@/interfaces/company'
 import {  useQuery } from '@tanstack/react-query'
-import AddCompany from './_Components/AddCompany'
+import { DataTable } from '../companies/data-table'
+import { columns } from './columns'
+import { Categories } from '@/interfaces/categories'
+import AddCategory from './_Components/AddCategory'
+
 
 export default function Page() {
 
-  const { data, isLoading } = useQuery<Companies>({
-    queryKey: ['companies'],
+  const { data, isLoading } = useQuery<Categories>({
+    queryKey: ['categories'],
     queryFn: async () => {
-  const res = await fetch('/api/dashboard/companies')
+  const res = await fetch('/api/dashboard/categories')
   const payload = await res.json()
   return payload
 },
@@ -30,7 +31,7 @@ export default function Page() {
         ) : (
           <>
             <div className="w-full">
-              <AddCompany></AddCompany>
+              <AddCategory></AddCategory>
               <DataTable columns={columns} data={data!.data} />
             </div>
           </>

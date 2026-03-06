@@ -3,17 +3,17 @@ import { AlertDialog,  AlertDialogCancel, AlertDialogContent, AlertDialogDescrip
 import { Button } from '@/components/ui/button'
 import {  useMutation, useQueryClient } from '@tanstack/react-query'
 import  { useState } from 'react'
-import { deleteCompany } from '../_Actions/deleteCompany'
+import { deleteCategory } from '../_Actions/deleteCategory'
 
 export default function PopUpMessage({id}:{id:number}) {
   const [open,setOpen]=useState(false)
   const queryClient= useQueryClient()
        const {mutate,isPending} = useMutation({
-  mutationFn: deleteCompany,
+  mutationFn: deleteCategory,
 })
   function handleDelete({id}:{id:number}){
     mutate({id:id},{onSuccess:()=>{
-      queryClient.invalidateQueries({queryKey:['companies']})
+      queryClient.invalidateQueries({queryKey:['categories']})
       setOpen(false)
     }})
     
@@ -28,7 +28,7 @@ export default function PopUpMessage({id}:{id:number}) {
     <AlertDialogHeader>
       <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
       <AlertDialogDescription>
-        This action cannot be undone. This will permanently delete this Company
+        This action cannot be undone. This will permanently delete this Category
         from our servers.
       </AlertDialogDescription>
     </AlertDialogHeader>

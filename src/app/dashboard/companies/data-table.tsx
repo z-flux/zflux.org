@@ -58,10 +58,11 @@ export function DataTable<TData, TValue>({
       rowSelection
     },
   })
-
+  const nameColumn = table.getAllColumns().find(col => col.id === "name")
   return (
     <div>
         <div className="flex items-center py-4">
+          {nameColumn&& 
         <Input
           placeholder="Filter By Name..."
           value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
@@ -70,7 +71,7 @@ export function DataTable<TData, TValue>({
           }
           className="max-w-sm"
         />
-        
+}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">

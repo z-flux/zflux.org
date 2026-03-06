@@ -3,7 +3,6 @@ import { cookies } from "next/headers";
 
 export default async function GetTokenAuth() {
   const cookieStore = cookies();
-  console.log("All cookies:", (await cookieStore).getAll());
 
   const possibleNames = [
     "next-auth.session-token",
@@ -16,7 +15,6 @@ export default async function GetTokenAuth() {
     const c = (await cookieStore).get(name);
     if (c) {
       authToken = c.value;
-      console.log(`Using cookie: ${name}`);
       break;
     }
   }

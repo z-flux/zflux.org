@@ -28,22 +28,22 @@ const fetchRoles = async () => {
 
   return (
     <div className="min-h-screen">
-      <div className="w-[90%] mx-auto py-10">
-        {isLoading ? (
-          <div className="min-h-screen -mt-4 flex justify-center items-center">
-            <span className="loader"></span>
-          </div>
-        ) : (<>
-                <div className='w-full'>
-                  <div className='w-1/9 ml-auto'>
-                    <CreateRole></CreateRole>
-                  </div>
-                  
-                  </div>
+          
+          <div className="w-[90%] mx-auto py-10">
+            
+            {isLoading ? (
+              <div className="min-h-screen -mt-4 flex justify-center items-center">
+                <span className="loader"></span>
+              </div>
+            ) : (
+              <>
+                <div className="w-full">
+                  <CreateRole></CreateRole>
                   <DataTable columns={columns} data={data!.data} />
-                  </>
-        )}
-      </div>
-    </div>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
   )
 }

@@ -9,9 +9,7 @@ export const companySchema = z.object({
     .string()
     .email("Invalid email address"),
 
-  phone: z
-    .string()
-    .min(6, "Invalid phone number"),
+  phone:z.string().nonempty('phone is required').regex(/^01[0125][0-9]{8}$/,'invalid phone number'),
 
   address: z
     .string()

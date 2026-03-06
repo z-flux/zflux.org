@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Switch } from '@/components/ui/switch'
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog'
+import { AlertDialog,  AlertDialogCancel, AlertDialogContent,  AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog'
 import { CompanyFormValues, companySchema } from '@/schemas/companySchema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import React from 'react'
@@ -40,9 +40,7 @@ export default function AddCompany() {
 })
 const [open, setOpen] = React.useState(false)
 const queryClient = useQueryClient()
-const {mutate,data:m} =useMutation({mutationFn:createCompany,mutationKey:['companies'],onSuccess:()=>{
-  queryClient.invalidateQueries({queryKey:['companies']})
-}})
+const {mutate} =useMutation({mutationFn:createCompany,mutationKey:['companies']})
 
 const { fields, append, remove } = useFieldArray({
   control: form.control,
@@ -57,9 +55,6 @@ const onSubmit = (data: CompanyFormValues) => {
     queryClient.invalidateQueries({ queryKey: ['companies'] })
         setOpen(false)
   }})
-  console.log(m);
-  
-  console.log(data)
 }
 
 

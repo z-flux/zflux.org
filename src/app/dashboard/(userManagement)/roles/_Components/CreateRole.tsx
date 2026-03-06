@@ -32,9 +32,7 @@ const fetchPermissions = async () => {
 
 
 const queryClient = useQueryClient()
-  const {mutate,isPending} = useMutation({mutationFn:createRole,mutationKey:['roles'],onSuccess:(data)=>{
-    console.log(data);
-    
+  const {mutate,isPending} = useMutation({mutationFn:createRole,mutationKey:['roles'],onSuccess:()=>{    
     setOpen(false)
     queryClient.invalidateQueries({queryKey:['roles']})
   }})

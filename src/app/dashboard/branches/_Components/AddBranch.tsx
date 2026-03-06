@@ -42,25 +42,20 @@ export default function AddBranch() {
 })
 const [open, setOpen] = React.useState(false)
 const queryClient = useQueryClient()
-const {mutate,data:m} =useMutation({mutationFn:createBranch,mutationKey:['branches'],onSuccess:()=>{
-  queryClient.invalidateQueries({queryKey:['branches']})
-}})
+const {mutate,data:m} =useMutation({mutationFn:createBranch,mutationKey:['branches']})
 
 const { fields, append, remove } = useFieldArray({
   control: form.control,
   name: "settings",
 })
-console.log(form.formState.errors);
 
 const onSubmit = (data: BranchSchema) => {
-  console.log("SUBMIT FIRED")
+ 
   mutate({ Cdata: data },{onSuccess:()=>{
     queryClient.invalidateQueries({ queryKey: ['branches'] })
         setOpen(false)
   }})
-  console.log(m);
-  
-  console.log(data)
+
 }
 
 

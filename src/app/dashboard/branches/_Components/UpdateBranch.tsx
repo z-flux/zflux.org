@@ -1,5 +1,5 @@
 'use client'
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog'
+import { AlertDialog,  AlertDialogCancel, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import {Form,FormControl,FormField,FormItem,FormLabel,FormMessage,} from "@/components/ui/form";
@@ -7,7 +7,6 @@ import React, { useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { updateUsers, UpdateUserScheme } from '@/schemas/updateuserSchema';
 import { Branch } from '@/interfaces/branch';
 import { updateBranch } from '../_Actions/updateBranch';
 import { updateBranchScheme, UpdateBranchScheme } from '@/schemas/updateBranchSchema';
@@ -26,16 +25,11 @@ export default function UpdateBranch({branch}:{branch:Branch}) {
       });
      
   const queryClient = useQueryClient()
-  const {mutate,isPending} = useMutation({mutationFn:updateBranch,mutationKey:['branches'],onSuccess:(data)=>{
-    console.log(data);
-    
-    queryClient.invalidateQueries({queryKey:['branches']})
-  }})
+  const {mutate,isPending} = useMutation({mutationFn:updateBranch,mutationKey:['branches']})
      
 
      async function onSubmit(data:UpdateBranchScheme){
         const ready = {...data,tax_rate:parseFloat(data.tax_rate)}
-        console.log(ready);
         
         mutate({id,data:ready},{onSuccess:()=>{
             setOpen(false)

@@ -25,7 +25,7 @@ export const AuthOptions:NextAuthOptions={
                     }
                 })
                 const payload = await res.json()
-                if(payload.data.token){
+                if(payload?.data?.token){
                    
                     
                     return {
@@ -35,7 +35,7 @@ export const AuthOptions:NextAuthOptions={
                         expiresAt:Math.floor(Date.now()/1000)+payload.data.expires_in
                     }
                 }
-                else { throw new Error (payload.error || 'something went wrong')}
+                else { throw new Error (payload.message || 'something went wrong')}
             })
         })
     ],
