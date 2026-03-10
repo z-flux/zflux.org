@@ -3,10 +3,12 @@
 
 
 import {  useQuery } from '@tanstack/react-query'
-import { DataTable } from '../../../_Components/data-table'
 import { columns } from './columns'
 import { Users } from '@/interfaces/user'
 import AddUser from './_Components/AddUser'
+import { DataTable } from '@/app/_Components/data-table'
+import { usePermission } from '@/hooks/usePermission'
+import Unauthorized from '@/app/_Components/Unauthorized'
 
 
 
@@ -25,7 +27,7 @@ const fetchUsers = async () => {
     queryFn: fetchUsers,
    
   })
-
+  const {can} = usePermission()
 
   return (
     <div className="min-h-screen">
@@ -39,8 +41,12 @@ const fetchUsers = async () => {
             ) : (
               <>
                 <div className="w-full">
-                  <AddUser></AddUser>
-                  <DataTable columns={columns} data={data!.data} />
+                  {can("create_users")&&
+                  <AddUser></AddUser>}
+                  {can("view_users")?
+                  <DataTable columns={columns} data={data!.data} />:
+                  <Unauthorized/>
+                  }
                 </div>
               </>
             )}

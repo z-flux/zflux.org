@@ -43,7 +43,7 @@ export default function Login() {
         const session = await getSession()
         if(session?.user?.user.is_super_admin ==true)
           redirect('/superadmin')
-        if(session?.user?.roles[0].name=='cashier')
+        if(session?.user?.roles.includes({id:4,name:"cashier"}))
           redirect('/pos')
         redirect('/dashboard')
     }

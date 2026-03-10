@@ -8,9 +8,10 @@ import { ArrowUpDown } from "lucide-react"
 import PermissionsPopUp from "./_Components/PermissionsPopUp"
 import PopUpMessage from "./_Components/PopUpMessage"
 import UpdateRolePermissions from "./_Components/UpdateRolePermissions"
+import { usePermission } from "@/hooks/usePermission"
 
 
-
+const {can} = usePermission()
 
 export const columns : ColumnDef<Role>[] = [
    {
@@ -83,8 +84,10 @@ export const columns : ColumnDef<Role>[] = [
  
       return (
         <div className="flex gap-4  items-center me-4">
-          <UpdateRolePermissions role={role}></UpdateRolePermissions>
-            <PopUpMessage id={role.id}></PopUpMessage>
+          {can("update_roles")&&
+          <UpdateRolePermissions role={role}></UpdateRolePermissions>}
+          {can("delete_roles")&&
+            <PopUpMessage id={role.id}></PopUpMessage>}
             <PermissionsPopUp role={role}></PermissionsPopUp>
         </div>
       )

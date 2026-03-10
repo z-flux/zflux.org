@@ -20,13 +20,16 @@ import darklogo from '../assets/light.svg'
 import lightlogo from '../assets/zfluxdarkLogo.svg'
 import Image from "next/image"
 import { ThemeContext } from "@/theme.context"
-import { signOut } from "next-auth/react"
+import { signOut, useSession } from "next-auth/react"
+import { usePermission } from "@/hooks/usePermission"
 
 export function AppSidebar() {
   const myLang = useContext(langContext)!
-      const {lang} = myLang
-      const mytheme=useContext(ThemeContext)!
-          const {theme}=mytheme
+  const {lang} = myLang
+  const mytheme=useContext(ThemeContext)!
+  const {theme}=mytheme
+  const {data:session} = useSession()
+  const {can} = usePermission()
   return (
     <Sidebar  side={lang === 'ar' ? 'right' : 'left'}  className="w-60">
       <SidebarHeader>
@@ -38,7 +41,7 @@ export function AppSidebar() {
         <SidebarGroup>
           <SidebarMenu>
 
-
+{can("view_branches")&&
   <SidebarMenuItem>
     <SidebarMenuButton asChild>
       <Link href="/dashboard/branches">
@@ -46,7 +49,7 @@ export function AppSidebar() {
       </Link>
     </SidebarMenuButton>
   </SidebarMenuItem>
-
+}
 <Collapsible
             
             asChild
@@ -64,31 +67,32 @@ export function AppSidebar() {
               </CollapsibleTrigger>
               <CollapsibleContent>
                 <SidebarMenuSub >
-            
+          {can("view_users")&& 
           <SidebarMenuSubItem>
             <SidebarMenuSubButton asChild>
               <Link href="/dashboard/users">Users</Link>
             </SidebarMenuSubButton>
           </SidebarMenuSubItem>
-
+} {can("view_roles")&&
           <SidebarMenuSubItem>
             <SidebarMenuSubButton asChild>
               <Link href="/dashboard/roles">Roles</Link>
             </SidebarMenuSubButton>
           </SidebarMenuSubItem>
-
+} {can("view_permissions")&&
           <SidebarMenuSubItem>
             <SidebarMenuSubButton asChild>
               <Link href="/dashboard/permissions">Permissions</Link>
             </SidebarMenuSubButton>
           </SidebarMenuSubItem>
+}
         </SidebarMenuSub>
               </CollapsibleContent>
             </SidebarMenuItem>
           </Collapsible>
 
           
-
+{can("view_categories")&&
   <SidebarMenuItem>
     <SidebarMenuButton asChild>
       <Link href="/dashboard/categories">
@@ -96,6 +100,8 @@ export function AppSidebar() {
       </Link>
     </SidebarMenuButton>
   </SidebarMenuItem> 
+}
+{can("view_subcategories")&&
 <SidebarMenuItem>
     <SidebarMenuButton asChild>
       <Link href="/dashboard/subcategories">
@@ -103,6 +109,7 @@ export function AppSidebar() {
       </Link>
     </SidebarMenuButton>
   </SidebarMenuItem> 
+} {can("view_customers")&&
   <SidebarMenuItem>
     <SidebarMenuButton asChild>
       <Link href="/dashboard/customers">
@@ -110,6 +117,7 @@ export function AppSidebar() {
       </Link>
     </SidebarMenuButton>
   </SidebarMenuItem> 
+} {can("view_orders")&&
   <SidebarMenuItem>
     <SidebarMenuButton asChild>
       <Link href="/dashboard/orders">
@@ -117,7 +125,7 @@ export function AppSidebar() {
       </Link>
     </SidebarMenuButton>
   </SidebarMenuItem> 
-
+} {can("view_products")&&
 <SidebarMenuItem>
     <SidebarMenuButton asChild>
       <Link href="/dashboard/products">
@@ -125,7 +133,7 @@ export function AppSidebar() {
       </Link>
     </SidebarMenuButton>
   </SidebarMenuItem> 
-
+} {can("view_stocks")&&
   <SidebarMenuItem>
     <SidebarMenuButton asChild>
       <Link href="/dashboard/stocks">
@@ -133,7 +141,7 @@ export function AppSidebar() {
       </Link>
     </SidebarMenuButton>
   </SidebarMenuItem>
-
+} {can("view_shifts")&&
     <SidebarMenuItem>
     <SidebarMenuButton asChild>
       <Link href="/dashboard/shifts">
@@ -141,6 +149,7 @@ export function AppSidebar() {
       </Link>
     </SidebarMenuButton>
   </SidebarMenuItem>
+}
 </SidebarMenu>
 
         </SidebarGroup>

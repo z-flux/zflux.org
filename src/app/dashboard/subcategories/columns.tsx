@@ -7,8 +7,9 @@ import { ColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown } from "lucide-react"
 import UpdateSubcategory from "./_Components/UpdateSubcategory"
 import PopUpMessage from "./_Components/PopUpMessage"
+import { usePermission } from "@/hooks/usePermission"
 
-
+const {can} = usePermission()
 export const columns : ColumnDef<Subcategory>[] = [
    {
     id: "select",
@@ -70,9 +71,10 @@ export const columns : ColumnDef<Subcategory>[] = [
   
         return (
           <div className="flex gap-4 items-center me-4">
-            <UpdateSubcategory chosenSubcategory={subcategory}></UpdateSubcategory>
-            <PopUpMessage id={subcategory.id}></PopUpMessage>
-              <button ><i className="cursor-pointer text-sm  fa-regular fa-eye font-thin hover:text-green-600 transition duration-100"></i></button>
+            {can("edit_subcategories")&&
+            <UpdateSubcategory chosenSubcategory={subcategory}></UpdateSubcategory>}
+            {can("delete_subcategories")&&
+            <PopUpMessage id={subcategory.id}></PopUpMessage>}
           </div>
         )
       },

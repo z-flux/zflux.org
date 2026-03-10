@@ -5,6 +5,8 @@ import { DataTable } from '../../_Components/data-table'
 import { columns } from './columns'
 import { Customers } from '@/interfaces/customers'
 import AddCustomer from './_Components/AddCustomer'
+import { usePermission } from '@/hooks/usePermission'
+import Unauthorized from '@/app/_Components/Unauthorized'
 
 
 export default function Page() {
@@ -17,7 +19,7 @@ export default function Page() {
   return payload
 },
   })
-
+  const {can} = usePermission()
   return (
     
     <div className="min-h-screen">
@@ -31,8 +33,12 @@ export default function Page() {
         ) : (
           <>
             <div className="w-full">
-              <AddCustomer></AddCustomer>
-              <DataTable columns={columns} data={data!.data} />
+              {can("create_customers")&&
+              <AddCustomer></AddCustomer>}
+              {can("view_customers")?
+              <DataTable columns={columns} data={data!.data} />:
+              <Unauthorized/>
+              }
             </div>
           </>
         )}

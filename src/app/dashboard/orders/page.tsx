@@ -3,8 +3,9 @@
 import {  useQuery } from '@tanstack/react-query'
 import { DataTable } from '../../_Components/data-table'
 import { columns } from './columns'
-import { Customers } from '@/interfaces/customers'
 import { Orders } from '@/interfaces/orders'
+import { usePermission } from '@/hooks/usePermission'
+import Unauthorized from '@/app/_Components/Unauthorized'
 
 
 export default function Page() {
@@ -17,7 +18,7 @@ export default function Page() {
   return payload
 },
   })
-
+const {can} = usePermission()
   return (
     
     <div className="min-h-screen">
@@ -31,8 +32,10 @@ export default function Page() {
         ) : (
           <>
             <div className="w-full">
-              
-              <DataTable columns={columns} data={data!.data} />
+              {can("view_orders")?
+              <DataTable columns={columns} data={data!.data} />:
+              <Unauthorized/>
+              }
             </div>
           </>
         )}

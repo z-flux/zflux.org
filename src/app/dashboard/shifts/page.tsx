@@ -6,6 +6,8 @@ import { columns } from './columns'
 import { Products } from '@/interfaces/products'
 import { Shifts } from '@/interfaces/shifts'
 import AddShift from './_Components/AddShift'
+import { usePermission } from '@/hooks/usePermission'
+import Unauthorized from '@/app/_Components/Unauthorized'
 
 
 export default function Page() {
@@ -18,7 +20,7 @@ export default function Page() {
   return payload
 },
   })
-
+  const {can} = usePermission()
   return (
     
     <div className="min-h-screen">
@@ -32,8 +34,11 @@ export default function Page() {
         ) : (
           <>
             <div className="w-full">
-                <AddShift></AddShift>
-              <DataTable columns={columns} data={data!.data} />
+              {can("create_shifts")&&
+                <AddShift></AddShift>}
+              {can("view_shifts")?
+              <DataTable columns={columns} data={data!.data} />:
+              <Unauthorized/>}
             </div>
           </>
         )}

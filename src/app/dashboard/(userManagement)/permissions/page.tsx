@@ -3,9 +3,11 @@
 
 
 import {  useQuery } from '@tanstack/react-query'
-import { DataTable } from '../../../_Components/data-table'
 import { Permissions } from '@/interfaces/permission'
 import { columns } from './columns'
+import { DataTable } from '@/app/_Components/data-table'
+import { usePermission } from '@/hooks/usePermission'
+import Unauthorized from '@/app/_Components/Unauthorized'
 
 
 
@@ -21,7 +23,7 @@ const fetchPermissions = async () => {
     queryFn: fetchPermissions,
    
   })
-
+  const {can} = usePermission()
 
   return (
     <div className="min-h-screen">
@@ -31,7 +33,12 @@ const fetchPermissions = async () => {
             <span className="loader"></span>
           </div>
         ) : (
-          <DataTable columns={columns} data={data!.data} />
+          <>
+          {can("view_permissions")?
+          <DataTable columns={columns} data={data!.data} />:
+          <Unauthorized/>
+          }
+          </>
         )}
       </div>
     </div>

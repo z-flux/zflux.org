@@ -7,11 +7,12 @@ import { ColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown } from "lucide-react"
 import PopUpMessage from "./_Components/PopUpMessage"
 import UpdateBranch from "./_Components/UpdateBranch"
+import { usePermission } from "@/hooks/usePermission"
 
 
 
 
-
+const {can} = usePermission()
 
 export const columns : ColumnDef<Branch>[] = [
    {
@@ -90,9 +91,10 @@ export const columns : ColumnDef<Branch>[] = [
  
       return (
         <div className="flex gap-4  items-center me-4">
-          <UpdateBranch branch={branch}></UpdateBranch>
-            <PopUpMessage id={branch.id}></PopUpMessage>
-            <button><i className="cursor-pointer text-sm  fa-regular fa-eye font-thin hover:text-green-600 transition duration-100"></i></button>
+          {can("edit_branches")&&
+          <UpdateBranch branch={branch}></UpdateBranch>}
+          {can("delete_branches")&&
+            <PopUpMessage id={branch.id}></PopUpMessage>}
         </div>
       )
     },

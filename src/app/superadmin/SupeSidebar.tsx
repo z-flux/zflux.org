@@ -27,7 +27,7 @@ export function SuperSidebar() {
   return (
     <Sidebar  side={lang === 'ar' ? 'right' : 'left'}  className="w-60">
       <SidebarHeader>
-        <Link href="/dashboard">
+        <Link href="/superadmin">
         <Image alt='' className="w-[40%] me-auto mt-4" src={theme=='dark'? darklogo:lightlogo} />
         </Link>
       </SidebarHeader>
@@ -38,7 +38,7 @@ export function SuperSidebar() {
 
   <SidebarMenuItem>
     <SidebarMenuButton asChild>
-      <Link href="/dashboard/companies">
+      <Link href="/superadmin/companies">
         <span>Companies</span>
       </Link>
     </SidebarMenuButton>

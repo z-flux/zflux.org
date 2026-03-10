@@ -7,7 +7,9 @@ import { ColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown } from "lucide-react"
 import PopUpMessage from "./_Components/PopUpMessage"
 import UpdateCustomer from "./_Components/UpdateCustomer"
+import { usePermission } from "@/hooks/usePermission"
 
+const {can} = usePermission()
 export const columns : ColumnDef<Customer>[] = [
    {
     id: "select",
@@ -81,9 +83,10 @@ export const columns : ColumnDef<Customer>[] = [
 
       return (
         <div className="flex gap-4 items-center me-4">
-          <UpdateCustomer chosenCustomer={customer}></UpdateCustomer>
-            <PopUpMessage id={customer.id}></PopUpMessage>
-            <button ><i className="cursor-pointer text-sm  fa-regular fa-eye font-thin hover:text-green-600 transition duration-100"></i></button>
+          {can("edit_customers")&&
+          <UpdateCustomer chosenCustomer={customer}></UpdateCustomer>}
+          {can("delete_customers")&&
+            <PopUpMessage id={customer.id}></PopUpMessage>}
         </div>
       )
     },

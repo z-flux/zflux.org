@@ -5,6 +5,8 @@ import { DataTable } from '../../_Components/data-table'
 import { columns } from './columns'
 import { Products } from '@/interfaces/products'
 import AddProduct from './_Components/AddProduct'
+import { usePermission } from '@/hooks/usePermission'
+import Unauthorized from '@/app/_Components/Unauthorized'
 
 
 export default function Page() {
@@ -17,6 +19,7 @@ export default function Page() {
   return payload
 },
   })
+  const {can} = usePermission()
 
   return (
     
@@ -31,8 +34,12 @@ export default function Page() {
         ) : (
           <>
             <div className="w-full">
-              <AddProduct></AddProduct>
-              <DataTable columns={columns} data={data!.data} />
+              {can("create_products")&&
+              <AddProduct></AddProduct>}
+              {can("view_products")?
+              <DataTable columns={columns} data={data!.data} />:
+              <Unauthorized/>
+              }
             </div>
           </>
         )}

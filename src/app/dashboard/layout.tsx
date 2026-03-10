@@ -5,14 +5,18 @@ import { redirect } from "next/navigation";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import SidebarClientLayout from "./sidebar-client-layout";
+import { SuperAdminBanner } from "../_Components/SuperAdminBanner";
 
 export default async function DashboardLayout({ children }:Readonly<{
   children: React.ReactNode;
 }>) {
+  
+const session =await getServerSession(AuthOptions)
 
 
 return (
     <div className="">
+      <SuperAdminBanner session={session}/>
       <NavBarWSideBar />
       
       <SidebarClientLayout>

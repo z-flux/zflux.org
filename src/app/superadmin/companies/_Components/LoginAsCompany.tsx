@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { signIn } from 'next-auth/react'
+import { redirect } from 'next/navigation'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 
@@ -18,7 +19,7 @@ export default function LoginAsCompany({id}:{id:number}) {
     })
     if(res?.ok){
         setIsLoading(false)
-        console.log(res.url);  
+        redirect('/dashboard') 
     }
     else{
       setIsLoading(false)

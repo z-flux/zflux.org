@@ -7,8 +7,9 @@ import { ColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown } from "lucide-react"
 import UpdateShift from "./_Components/UpdateShift"
 import PopUpMessage from "./_Components/PopUpMessage"
+import { usePermission } from "@/hooks/usePermission"
 
-
+const {can} = usePermission()
 export const columns : ColumnDef<Shift>[] = [
    {
     id: "select",
@@ -110,9 +111,10 @@ export const columns : ColumnDef<Shift>[] = [
   
         return (
           <div className="flex gap-4 items-center me-4">
-                <UpdateShift chosenShift={shift}></UpdateShift>
-                <PopUpMessage id={shift.id}></PopUpMessage>
-              <button ><i className="cursor-pointer text-sm  fa-regular fa-eye font-thin hover:text-green-600 transition duration-100"></i></button>
+            {can("edit_shifts")&&
+                <UpdateShift chosenShift={shift}></UpdateShift>}
+            {can("delete_shifts")&&
+                <PopUpMessage id={shift.id}></PopUpMessage>}
           </div>
         )
       },

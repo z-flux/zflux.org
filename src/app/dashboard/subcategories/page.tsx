@@ -5,6 +5,8 @@ import { DataTable } from '../../_Components/data-table'
 import { columns } from './columns'
 import { Subcategories } from '@/interfaces/subcategory'
 import AddSubcategory from './_Components/AddSubcategory'
+import { usePermission } from '@/hooks/usePermission'
+import Unauthorized from '@/app/_Components/Unauthorized'
 
 
 export default function Page() {
@@ -17,7 +19,7 @@ export default function Page() {
   return payload
 },
   })
-
+  const {can} = usePermission()
   return (
     
     <div className="min-h-screen">
@@ -31,8 +33,11 @@ export default function Page() {
         ) : (
           <>
             <div className="w-full">
-              <AddSubcategory></AddSubcategory>
-              <DataTable columns={columns} data={data!.data} />
+              {can("create_subcategories")&&
+              <AddSubcategory></AddSubcategory>}
+              {can("view_subcategories")?
+              <DataTable columns={columns} data={data!.data} />:
+              <Unauthorized/>}
             </div>
           </>
         )}

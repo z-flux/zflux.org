@@ -5,6 +5,8 @@ import { columns } from './columns'
 import { DataTable } from '../../_Components/data-table'
 import { Branches } from '@/interfaces/branch'
 import AddBranch from './_Components/AddBranch'
+import { usePermission } from '@/hooks/usePermission'
+import Unauthorized from '@/app/_Components/Unauthorized'
 
 
 export default function Page() {
@@ -18,7 +20,7 @@ const fetchBranches = async () => {
     queryFn: fetchBranches,
    
   })
-
+  const{can} = usePermission()
 
   return (
     <div className="min-h-screen">
@@ -32,8 +34,12 @@ const fetchBranches = async () => {
             ) : (
               <>
                 <div className="w-full">
-                  <AddBranch></AddBranch>
-                  <DataTable columns={columns} data={data!.data} />
+                  {can("create_branches")&&
+                  <AddBranch></AddBranch>}
+                  {can("view_branches")?
+                  <DataTable columns={columns} data={data!.data} />:
+                  <Unauthorized/>
+                  }
                 </div>
               </>
             )}

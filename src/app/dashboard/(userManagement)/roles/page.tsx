@@ -3,10 +3,13 @@
 
 
 import {  useQuery } from '@tanstack/react-query'
-import { DataTable } from '../../../_Components/data-table'
+
 import { Roles } from '@/interfaces/role'
 import { columns } from './columns'
 import CreateRole from './_Components/CreateRole'
+import { DataTable } from '@/app/_Components/data-table'
+import { usePermission } from '@/hooks/usePermission'
+import Unauthorized from '@/app/_Components/Unauthorized'
 
 
 
@@ -24,6 +27,7 @@ const fetchRoles = async () => {
     queryFn: fetchRoles,
    
   })
+  const{can}= usePermission()
 
 
   return (
@@ -38,8 +42,13 @@ const fetchRoles = async () => {
             ) : (
               <>
                 <div className="w-full">
+                  {can("create_roles")&&
                   <CreateRole></CreateRole>
-                  <DataTable columns={columns} data={data!.data} />
+                  }
+                  {can("view_roles")?
+                  <DataTable columns={columns} data={data!.data} />:
+                  <Unauthorized/>
+                  }
                 </div>
               </>
             )}

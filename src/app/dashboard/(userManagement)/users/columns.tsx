@@ -9,10 +9,11 @@ import { ArrowUpDown } from "lucide-react"
 import UpdateUser from "./_Components/UpdateUser"
 import PopUpMessage from "./_Components/PopUpMessage"
 import RolesPopUp from "./_Components/RolesPopUp"
+import { usePermission } from "@/hooks/usePermission"
 
 
 
-
+const{can} = usePermission()
 
 export const columns : ColumnDef<User>[] = [
    {
@@ -74,7 +75,7 @@ export const columns : ColumnDef<User>[] = [
     header: "Salary",
   },
   {
-    accessorKey: "company",
+    accessorKey: "company.name",
     header: "Company",
   },
   {
@@ -88,8 +89,10 @@ export const columns : ColumnDef<User>[] = [
  
       return (
         <div className="flex gap-4  items-center me-4">
-            <UpdateUser user={user}></UpdateUser>
-            <PopUpMessage id={user.id}></PopUpMessage>
+          {can("edit_users")&&
+            <UpdateUser user={user}></UpdateUser>}
+          {can("delete_users")&&
+            <PopUpMessage id={user.id}></PopUpMessage>}
             <RolesPopUp user={user}></RolesPopUp>
         </div>
       )
