@@ -3,7 +3,7 @@
 
 
 import {  useQuery } from '@tanstack/react-query'
-import { DataTable } from '../../companies/data-table'
+import { DataTable } from '../../../_Components/data-table'
 import { Permissions } from '@/interfaces/permission'
 import { columns } from './columns'
 

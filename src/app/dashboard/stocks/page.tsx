@@ -1,7 +1,7 @@
 'use client'
 
 import {  useQuery } from '@tanstack/react-query'
-import { DataTable } from '../companies/data-table'
+import { DataTable } from '../../_Components/data-table'
 import { columns } from './columns'
 import { Stocks } from '@/interfaces/stocks'
 

@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
     )
   }
 
-  const res = await fetch('https://api.zflux.org/api/dashboard/customers', {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API}/dashboard/customers`, {
     headers: {
       Authorization: `Bearer ${token.token}`,
     },

@@ -6,6 +6,7 @@ import LangContextProvider from "@/lang.context";
 import ThemeContextProvider from "@/theme.context";
 import { Toaster } from "react-hot-toast";
 import Providers from "@/Providers/QueryProvider";
+import AuthSessionProvider from "@/Providers/AuthSessionProvider";
 
 
 
@@ -34,12 +35,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ThemeContextProvider>
+         <ThemeContextProvider>
         <LangContextProvider>
+        <AuthSessionProvider>
           <Toaster/>
           <Providers>
         {children}
         </Providers>
+        </AuthSessionProvider>
         </LangContextProvider>
         </ThemeContextProvider>
       </body>

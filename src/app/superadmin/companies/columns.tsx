@@ -7,6 +7,7 @@ import { ColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown } from "lucide-react"
 import PopUpMessage from "./_Components/PopUpMessage"
 import UpdateCompany from "./_Components/UpdateCompany"
+import LoginAsCompany from "./_Components/LoginAsCompany"
 
 
 
@@ -75,7 +76,7 @@ export const columns : ColumnDef<Company>[] = [
         <div className="flex gap-4  items-center me-4">
             <UpdateCompany company={company}></UpdateCompany>
             <PopUpMessage  id={company.id}></PopUpMessage>
-            <button ><i className="cursor-pointer text-sm  fa-regular fa-eye font-thin hover:text-green-600 transition duration-100"></i></button>
+            <LoginAsCompany id={company.id}></LoginAsCompany>
         </div>
       )
     },

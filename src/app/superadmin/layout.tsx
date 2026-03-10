@@ -1,16 +1,16 @@
 import { getServerSession } from "next-auth";
-import NavBarWSideBar from "./_Components/NavBarWSideBar";
 import { AuthOptions } from "@/authOptions";
 import { redirect } from "next/navigation";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/app-sidebar";
 import SidebarClientLayout from "./sidebar-client-layout";
+import NavBarWSideBar from "../dashboard/_Components/NavBarWSideBar";
 
-export default async function DashboardLayout({ children }:Readonly<{
+export default async function SuperAdminLayout({ children }:Readonly<{
   children: React.ReactNode;
 }>) {
 
-
+  
+const session = await getServerSession(AuthOptions)
+if(session?.user?.user.is_super_admin&&session.user.user.company_id==null){
 return (
     <div className="">
       <NavBarWSideBar />
@@ -23,6 +23,7 @@ return (
     </SidebarClientLayout>
     </div>
   )
-
-  
+}else{
+  redirect('/')
+}
 }

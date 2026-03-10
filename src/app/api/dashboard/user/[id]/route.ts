@@ -14,7 +14,7 @@ const { id } = await context.params
     )
   }
 
-  const res = await fetch(`https://api.zflux.org/api/dashboard/users/${id}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API}/dashboard/users/${id}`, {
     headers: {
       Authorization: `Bearer ${token.token}`
     },

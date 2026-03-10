@@ -6,17 +6,19 @@ import { login, loginScheme } from "@/schemas/loginSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import logo from '../../assets/zfluxLogotrying-01.png'
 import darkLogo from '../../assets/zfluxLogoPLSNOMOREpng-01.png'
-import { signIn } from "next-auth/react";
+import { getSession, signIn, useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { useContext, useState } from "react";
 import { ThemeContext } from "@/theme.context";
+import { redirect } from "next/navigation";
 export default function Login() {
   const mytheme=useContext(ThemeContext)!
       const {theme}=mytheme
       const [isLoading,setIsLoading]=useState(false)
+      
   const form = useForm<loginScheme>({
     resolver: zodResolver(login),
     defaultValues: {
@@ -36,8 +38,14 @@ export default function Login() {
     
     if(res?.ok){
         setIsLoading(false)
-        window.location.href='/dashboard'
-        
+        sessionStorage.setItem("admin_email", data.email)
+        sessionStorage.setItem("admin_password", data.password)
+        const session = await getSession()
+        if(session?.user?.user.is_super_admin ==true)
+          redirect('/superadmin')
+        if(session?.user?.roles[0].name=='cashier')
+          redirect('/pos')
+        redirect('/dashboard')
     }
     else{
       setIsLoading(false)

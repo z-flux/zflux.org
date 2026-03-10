@@ -11,24 +11,24 @@ declare module "next-auth" {
         company_id:number|null
         },
         token:string,
-        expiresAt:number
+        expiresAt:number,
+        roles:{
+          id:number,
+          name:string
+        }[],
+        permissions:string[]
 
     }
 
   interface Session {
-    user: User['user'] | null
+    user: User | null,
+    
   }
 }
 declare module "next-auth/jwt" {
   interface JWT {
     // MUST be optional
-    user: {
-      id: number
-      name: string 
-      email: string 
-      is_super_admin:boolean
-      company_id:number|null
-    }
+    user: User
     token?: string
     expiresAt?: number
   }

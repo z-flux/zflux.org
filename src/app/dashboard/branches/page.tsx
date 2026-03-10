@@ -2,7 +2,7 @@
 
 import {  useQuery } from '@tanstack/react-query'
 import { columns } from './columns'
-import { DataTable } from '../companies/data-table'
+import { DataTable } from '../../_Components/data-table'
 import { Branches } from '@/interfaces/branch'
 import AddBranch from './_Components/AddBranch'
 

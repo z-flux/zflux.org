@@ -11,7 +11,8 @@ export const AuthOptions:NextAuthOptions={
             name:'credentials',
             credentials:{
                 email:{},
-                password:{}
+                password:{},
+                companyId:{}
             },
             authorize:(async (credentials)=>{
                 const res = await fetch(`https://api.zflux.org/api/login`,{
@@ -32,6 +33,8 @@ export const AuthOptions:NextAuthOptions={
                         id:payload.data.user.id,
                         user:payload.data.user,
                         token:payload.data.token,
+                        roles:payload.data.roles,
+                        permissions:payload.data.permissions,
                         expiresAt:Math.floor(Date.now()/1000)+payload.data.expires_in
                     }
                 }
@@ -45,10 +48,11 @@ async jwt({ token, user }) {
   
   if (user) {
     token.token = user.token
-    token.user = user.user
+    token.user = user
     token.expiresAt = user.expiresAt
     token.id = user.id
-    return token
+    
+    return token;
   }
   
   return token
@@ -56,7 +60,11 @@ async jwt({ token, user }) {
   },
   async session({ session, token }) {
     if(token.user){
+        
+        
         session.user=token.user
+        
+        
     }else {
       session.user = null
     }
