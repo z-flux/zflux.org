@@ -6,7 +6,7 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import SidebarClientLayout from "./sidebar-client-layout";
 import { SuperAdminBanner } from "../_Components/SuperAdminBanner";
-import { headers } from "next/headers";
+import { cookies } from "next/headers";
 import toast from "react-hot-toast";
 
 export default async function DashboardLayout({ children }: Readonly<{
@@ -14,15 +14,10 @@ export default async function DashboardLayout({ children }: Readonly<{
 }>) {
   
   const session = await getServerSession(AuthOptions)
-  const headersList = await headers()
-  const cookieStore = headersList.get('cookie') || ''
-  const companyId = cookieStore
-    .split('; ')
-    .find((row: string) => row.startsWith('company-id='))
-    ?.split('=')[1]
+  const cookieStore = await cookies()
+  const companyId = cookieStore.get("company-id")?.value
 
-
-  if(!companyId&&session?.user?.user.is_super_admin){
+  if(!companyId && session?.user?.user.is_super_admin){
     redirect("/superadmin")
   }
   return (
