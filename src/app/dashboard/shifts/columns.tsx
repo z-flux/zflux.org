@@ -9,7 +9,6 @@ import UpdateShift from "./_Components/UpdateShift"
 import PopUpMessage from "./_Components/PopUpMessage"
 import { usePermission } from "@/hooks/usePermission"
 
-const {can} = usePermission()
 export const columns : ColumnDef<Shift>[] = [
    {
     id: "select",
@@ -108,6 +107,7 @@ export const columns : ColumnDef<Shift>[] = [
       id: "actions",
       cell: ({ row }) => {
         const shift = row.original
+        const {can} = usePermission()
   
         return (
           <div className="flex gap-4 items-center me-4">

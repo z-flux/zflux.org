@@ -23,7 +23,10 @@ return (
     </SidebarClientLayout>
     </div>
   )
-}else{
+}else if(session!=null){
+redirect('/dashboard')
+}
+else{
   redirect('/')
 }
 }

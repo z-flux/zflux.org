@@ -1,5 +1,9 @@
+import { AuthOptions } from '@/authOptions'
 import { getToken } from 'next-auth/jwt'
+import { getServerSession } from 'next-auth'
+import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
+import { getCookie } from 'cookies-next'
 
 export async function GET(req: NextRequest) {
   const token = await getToken({
@@ -13,11 +17,18 @@ export async function GET(req: NextRequest) {
       { status: 401 }
     )
   }
+  const session =await getServerSession(AuthOptions)
+  const isSuperAdmin=session?.user?.user.is_super_admin
+  const companyId = await getCookie("company-id", { req })
+  const headers: HeadersInit = {
+  Authorization: `Bearer ${token.token}`,
+}
 
+if (isSuperAdmin && companyId) {
+  headers["X-Company-id"] = companyId.toString()
+}
   const res = await fetch(`${process.env.NEXT_PUBLIC_API}/dashboard/users`, {
-    headers: {
-      Authorization: `Bearer ${token.token}`
-    },
+    headers
   })
 
   const data = await res.json()

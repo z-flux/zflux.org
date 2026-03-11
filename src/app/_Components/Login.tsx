@@ -38,13 +38,9 @@ export default function Login() {
     
     if(res?.ok){
         setIsLoading(false)
-        sessionStorage.setItem("admin_email", data.email)
-        sessionStorage.setItem("admin_password", data.password)
         const session = await getSession()
         if(session?.user?.user.is_super_admin ==true)
           redirect('/superadmin')
-        if(session?.user?.roles.includes({id:4,name:"cashier"}))
-          redirect('/pos')
         redirect('/dashboard')
     }
     else{

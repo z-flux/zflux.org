@@ -9,7 +9,6 @@ import UpdateProduct from "./_Components/UpdateProduct"
 import PopUpMessage from "./_Components/PopUpMessage"
 import { usePermission } from "@/hooks/usePermission"
 
-const {can} = usePermission()
 export const columns : ColumnDef<Product>[] = [
    {
     id: "select",
@@ -76,6 +75,7 @@ export const columns : ColumnDef<Product>[] = [
       id: "actions",
       cell: ({ row }) => {
         const product = row.original
+        const {can} = usePermission()
   
         return (
           <div className="flex gap-4 items-center me-4">

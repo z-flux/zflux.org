@@ -6,9 +6,8 @@ import { Order } from "@/interfaces/orders"
 import { ColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown } from "lucide-react"
 
-
-export const columns : ColumnDef<Order>[] = [
-   {
+export const columns: ColumnDef<Order>[] = [
+  {
     id: "select",
     header: ({ table }) => (
       <Checkbox
@@ -29,7 +28,7 @@ export const columns : ColumnDef<Order>[] = [
     ),
     enableSorting: false,
     enableHiding: false,
-  }, 
+  },
   {
     accessorKey: "id",
     header: "Id",
@@ -70,26 +69,26 @@ export const columns : ColumnDef<Order>[] = [
     header: "Payment Status",
   },
   {
-  accessorKey: "created_at",
-  header: "Created At",
-  cell: ({ getValue }) => {
-    const value = getValue<string>()
-    return new Intl.DateTimeFormat("en-US", {
-      dateStyle: "medium",
-      timeStyle: "short",
-    }).format(new Date(value))
+    accessorKey: "created_at",
+    header: "Created At",
+    cell: ({ getValue }) => {
+      const value = getValue<string>()
+      return new Intl.DateTimeFormat("en-US", {
+        dateStyle: "medium",
+        timeStyle: "short",
+      }).format(new Date(value))
+    },
   },
-},
-{
-  accessorKey: "updated_at",
-  header: "Last Updated",
-  cell: ({ getValue }) => {
-    const value = getValue<string>()
-    return new Intl.DateTimeFormat("en-US", {
-      dateStyle: "medium",
-      timeStyle: "short",
-    }).format(new Date(value))
+  {
+    accessorKey: "updated_at",
+    header: "Last Updated",
+    cell: ({ getValue }) => {
+      const value = getValue<string>()
+      return new Intl.DateTimeFormat("en-US", {
+        dateStyle: "medium",
+        timeStyle: "short",
+      }).format(new Date(value))
+    },
   },
-},
   
 ]

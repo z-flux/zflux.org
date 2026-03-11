@@ -11,7 +11,6 @@ import UpdateRolePermissions from "./_Components/UpdateRolePermissions"
 import { usePermission } from "@/hooks/usePermission"
 
 
-const {can} = usePermission()
 
 export const columns : ColumnDef<Role>[] = [
    {
@@ -81,6 +80,7 @@ export const columns : ColumnDef<Role>[] = [
     id: "actions",
     cell: ({ row }) => {
       const role = row.original
+      const {can} = usePermission()
  
       return (
         <div className="flex gap-4  items-center me-4">

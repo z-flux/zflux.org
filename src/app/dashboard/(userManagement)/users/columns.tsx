@@ -13,7 +13,6 @@ import { usePermission } from "@/hooks/usePermission"
 
 
 
-const{can} = usePermission()
 
 export const columns : ColumnDef<User>[] = [
    {
@@ -86,6 +85,7 @@ export const columns : ColumnDef<User>[] = [
     id: "actions",
     cell: ({ row }) => {
       const user = row.original
+      const {can} = usePermission()
  
       return (
         <div className="flex gap-4  items-center me-4">

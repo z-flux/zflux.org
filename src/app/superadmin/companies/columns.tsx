@@ -10,10 +10,8 @@ import UpdateCompany from "./_Components/UpdateCompany"
 import LoginAsCompany from "./_Components/LoginAsCompany"
 
 
-
-
 export const columns : ColumnDef<Company>[] = [
-   {
+  {
     id: "select",
     header: ({ table }) => (
       <Checkbox

@@ -11,8 +11,7 @@ export const AuthOptions:NextAuthOptions={
             name:'credentials',
             credentials:{
                 email:{},
-                password:{},
-                companyId:{}
+                password:{}
             },
             authorize:(async (credentials)=>{
                 const res = await fetch(`https://api.zflux.org/api/login`,{

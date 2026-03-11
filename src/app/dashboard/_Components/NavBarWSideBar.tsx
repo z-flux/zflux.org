@@ -25,7 +25,7 @@ export default function NavBarWSideBar() {
  
   return (
     <div>
-  <nav className="bg-transparent fixed top-0 z-40 right-0 left-64 rtl:left-0 rtl:right-64 bg-neutral-primary-soft ">
+  <nav className="fixed top-0 z-40 right-0 left-64 rtl:left-0 rtl:right-64  ">
     <div className="px-3 py-3 lg:px-5 lg:pl-3">
       <div className="flex items-center justify-between">
         <div className="flex items-center justify-start rtl:justify-end">
