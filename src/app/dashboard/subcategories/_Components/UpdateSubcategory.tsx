@@ -8,18 +8,28 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { updateSubcategory } from '../_Actions/updateSubcategory'
 import { subcategory, SubcategoryScheme } from '@/schemas/subcategory'
 import { Subcategory } from '@/interfaces/subcategory'
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Categories } from '@/interfaces/categories'
 
 
 export default function UpdateSubcategory({chosenSubcategory}:{chosenSubcategory:Subcategory}) {
+        const { data } = useQuery<Categories>({
+    queryKey: ['categories'],
+    queryFn: async () => {
+  const res = await fetch('/api/dashboard/categories')
+  const payload = await res.json()
+  return payload
+},
+  })
     const id = chosenSubcategory.id
     const form = useForm<SubcategoryScheme>({
   resolver: zodResolver(subcategory),
   defaultValues: {
-    category_id:chosenSubcategory.category_id,
+    category_id:chosenSubcategory.category_id.toString(),
     name: chosenSubcategory.name,
     description:chosenSubcategory.description,
     is_active:chosenSubcategory.is_active
@@ -58,9 +68,23 @@ const onSubmit = (data: SubcategoryScheme) => {
         name="category_id"
         render={({ field }) => (
           <FormItem>
-            <FormLabel className='mb-1'>Category Id</FormLabel>
+            <FormLabel className='mb-1'>Category</FormLabel>
             <FormControl>
-              <Input className='mb-2' {...field} onChange={(e)=>field.onChange(Number(e.target.value))}/>
+               <Select 
+               onValueChange={field.onChange}
+               value={field.value}
+               >
+      <SelectTrigger className="w-full max-w-48">
+        <SelectValue placeholder="Select a category" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          <SelectLabel>Categories</SelectLabel>
+          {data?.data.map((category)=> <SelectItem key={category.id} value={`${category.id}`}>{category.name}</SelectItem>)}
+        
+        </SelectGroup>
+      </SelectContent>
+    </Select>
             </FormControl>
             <FormMessage />
           </FormItem>

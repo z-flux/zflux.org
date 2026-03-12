@@ -32,7 +32,7 @@ export function AppSidebar() {
   const {can} = usePermission()
   return (
     <Sidebar  side={lang === 'ar' ? 'right' : 'left'}  className="w-60">
-      <SidebarHeader>
+      <SidebarHeader className={session?.user?.user.is_super_admin ? 'pt-8' : ''}>
         <Link href="/dashboard">
         <Image alt='' className="w-[40%] me-auto mt-4" src={theme=='dark'? darklogo:lightlogo} />
         </Link>
@@ -159,7 +159,7 @@ export function AppSidebar() {
     <SidebarMenu>
       <SidebarMenuItem>
         <SidebarMenuButton onClick={async()=>await signOut() }>
-          <LogOut  /> Sign out
+          <LogOut className="rtl:rotate-180" /> Sign out
         </SidebarMenuButton>
       </SidebarMenuItem>
     </SidebarMenu>

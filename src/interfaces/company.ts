@@ -3,7 +3,11 @@ export interface Companies {
   message: string
   data: Company[]
 }
-
+export interface SpecificCompany {
+  success: boolean
+  message: string
+  data: Company
+}
 export interface Company {
   id: number
   name: string

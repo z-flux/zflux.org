@@ -55,7 +55,7 @@ export function SuperSidebar() {
     <SidebarMenu>
       <SidebarMenuItem>
         <SidebarMenuButton onClick={async()=>await signOut() }>
-          <LogOut  /> Sign out
+          <LogOut  className="rtl:rotate-180"/> Sign out
         </SidebarMenuButton>
       </SidebarMenuItem>
     </SidebarMenu>

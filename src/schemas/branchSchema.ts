@@ -1,7 +1,6 @@
 import * as z from 'zod'
 
 export const branchSchema = z.object({
-    company_id:z.number().nonnegative().nonoptional(),
     name: z.string().nonempty('name is required').min(3, "Name must be at least 3 characters"),
     code:z.string().nonempty('code is required').min(3, "Code must be at least 3 characters"),
     email: z.string().nonempty('email is required').email("Invalid email address"),

@@ -12,7 +12,7 @@ export default function SidebarClientLayout({
   return (
     <SidebarProvider>
       <SuperSidebar/>
-        <SidebarTrigger className="ml-2 z-50"/>
+        <SidebarTrigger className="ml-2 sticky z-50 top-2"/>
         {children}
     </SidebarProvider>
   )

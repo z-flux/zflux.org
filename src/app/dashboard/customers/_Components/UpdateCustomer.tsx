@@ -19,7 +19,6 @@ export default function UpdateCustomer({chosenCustomer}:{chosenCustomer:Customer
     const form = useForm<CustomerScheme>({
   resolver: zodResolver(customer),
   defaultValues: {
-    company_id:chosenCustomer.id,
     name: chosenCustomer.name,
     phone:chosenCustomer.phone,
     email:chosenCustomer.email
@@ -52,20 +51,7 @@ const onSubmit = (data: CustomerScheme) => {
   <form onSubmit={form.handleSubmit(onSubmit)} className="">
 
     <ScrollArea className="h-72 w-full rounded-md border p-3">
-      
-      <FormField
-        control={form.control}
-        name="company_id"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel className='mb-1'>Company Id</FormLabel>
-            <FormControl>
-              <Input className='mb-2' {...field} onChange={(e)=>field.onChange(Number(e.target.value))}/>
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
+    
       <FormField
         control={form.control}
         name="name"

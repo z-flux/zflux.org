@@ -8,6 +8,7 @@ import SidebarClientLayout from "./sidebar-client-layout";
 import { SuperAdminBanner } from "../_Components/SuperAdminBanner";
 import { cookies } from "next/headers";
 import toast from "react-hot-toast";
+import { setCookie } from "cookies-next";
 
 export default async function DashboardLayout({ children }: Readonly<{
   children: React.ReactNode;
@@ -16,17 +17,17 @@ export default async function DashboardLayout({ children }: Readonly<{
   const session = await getServerSession(AuthOptions)
   const cookieStore = await cookies()
   const companyId = cookieStore.get("company-id")?.value
-
-  if(!companyId && session?.user?.user.is_super_admin){
-    redirect("/superadmin")
+  const isSuperAdmin = session?.user?.user.is_super_admin
+  if(!companyId && isSuperAdmin){
+    redirect("/superadmin?toast=select-company")
   }
   return (
     <div className="">
       <SuperAdminBanner session={session}/>
       <NavBarWSideBar />
       
-      <SidebarClientLayout>
-      <main className="flex-1 min-w-0 my-10 ">
+      <SidebarClientLayout >
+      <main className="flex-1 min-w-0 my-10">
        
         {children}
       </main>

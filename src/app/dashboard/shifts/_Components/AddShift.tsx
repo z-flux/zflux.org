@@ -8,16 +8,27 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { shift, ShiftScheme } from '@/schemas/shiftSchema'
 import { createShift } from '../_Actions/createShift'
+import { Branches } from '@/interfaces/branch'
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select'
 
 
 export default function AddShift() {
+    const { data } = useQuery<Branches>({
+    queryKey: ['branches'],
+    queryFn: async () => {
+  const res = await fetch('/api/dashboard/branches')
+  const payload = await res.json()
+  return payload
+},
+   
+  })
     const form = useForm<ShiftScheme>({
   resolver: zodResolver(shift),
   defaultValues: {
-    branch_id:1,
+    branch_id:"",
     name: "",
     start_time:"",
     end_time:"",
@@ -59,9 +70,23 @@ const onSubmit = (data: ShiftScheme) => {
         name="branch_id"
         render={({ field }) => (
           <FormItem>
-            <FormLabel className='mb-1'>Branch Id</FormLabel>
+            <FormLabel className='mb-1'>Branch</FormLabel>
             <FormControl>
-              <Input className='mb-2' {...field} onChange={(e)=>field.onChange(Number(e.target.value))}/>
+               <Select 
+               onValueChange={field.onChange}
+               value={field.value}
+               >
+      <SelectTrigger className="w-full max-w-48">
+        <SelectValue placeholder="Select a branch" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          <SelectLabel>Branches</SelectLabel>
+          {data?.data.map((branch)=> <SelectItem key={branch.id} value={`${branch.id}`}>{branch.name}</SelectItem>)}
+        
+        </SelectGroup>
+      </SelectContent>
+    </Select>
             </FormControl>
             <FormMessage />
           </FormItem>

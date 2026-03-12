@@ -8,17 +8,26 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { product, ProductScheme } from '@/schemas/productSchema'
 import { createProduct } from '../_Actions/createProduct'
+import { Categories } from '@/interfaces/categories'
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select'
 
 
 export default function AddProduct() {
+    const { data } = useQuery<Categories>({
+    queryKey: ['categories'],
+    queryFn: async () => {
+  const res = await fetch('/api/dashboard/categories')
+  const payload = await res.json()
+  return payload
+},
+  })
     const form = useForm<ProductScheme>({
   resolver: zodResolver(product),
   defaultValues: {
-    company_id:1,
-    category_id:1,
+    category_id:"",
     name: "",
     sku:"",
     price:"",
@@ -57,25 +66,26 @@ const onSubmit = (data: ProductScheme) => {
       
       <FormField
         control={form.control}
-        name="company_id"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel className='mb-1'>Company Id</FormLabel>
-            <FormControl>
-              <Input className='mb-2' {...field} onChange={(e)=>field.onChange(Number(e.target.value))}/>
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <FormField
-        control={form.control}
         name="category_id"
         render={({ field }) => (
           <FormItem>
-            <FormLabel className='mb-1'>Category Id</FormLabel>
+            <FormLabel className='mb-1'>Category</FormLabel>
             <FormControl>
-              <Input className='mb-2' {...field} onChange={(e)=>field.onChange(Number(e.target.value))}/>
+               <Select 
+               onValueChange={field.onChange}
+               value={field.value}
+               >
+      <SelectTrigger className="w-full max-w-48">
+        <SelectValue placeholder="Select a category" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          <SelectLabel>Categories</SelectLabel>
+          {data?.data.map((category)=> <SelectItem key={category.id} value={`${category.id}`}>{category.name}</SelectItem>)}
+        
+        </SelectGroup>
+      </SelectContent>
+    </Select>
             </FormControl>
             <FormMessage />
           </FormItem>

@@ -16,7 +16,6 @@ export default function AddCategory() {
     const form = useForm<CategoryScheme>({
   resolver: zodResolver(category),
   defaultValues: {
-    company_id:1,
     name: "",
     description:"",
     is_active:true
@@ -52,19 +51,6 @@ const onSubmit = (data: CategoryScheme) => {
 
     <ScrollArea className="h-72 w-full rounded-md border p-3">
       
-      <FormField
-        control={form.control}
-        name="company_id"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel className='mb-1'>Company Id</FormLabel>
-            <FormControl>
-              <Input className='mb-2' {...field} onChange={(e)=>field.onChange(Number(e.target.value))}/>
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
       <FormField
         control={form.control}
         name="name"

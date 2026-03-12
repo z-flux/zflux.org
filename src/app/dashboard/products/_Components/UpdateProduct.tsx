@@ -8,20 +8,29 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { product, ProductScheme } from '@/schemas/productSchema'
 import { createProduct } from '../_Actions/createProduct'
 import { Product } from '@/interfaces/products'
 import { updateProduct } from '../_Actions/updateProduct'
+import { Categories } from '@/interfaces/categories'
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select'
 
 
 export default function UpdateProduct({chosenProduct}:{chosenProduct:Product}) {
+      const { data } = useQuery<Categories>({
+    queryKey: ['categories'],
+    queryFn: async () => {
+  const res = await fetch('/api/dashboard/categories')
+  const payload = await res.json()
+  return payload
+},
+  })
     const id = chosenProduct.id
     const form = useForm<ProductScheme>({
   resolver: zodResolver(product),
   defaultValues: {
-    company_id:chosenProduct.company_id,
-    category_id:chosenProduct.category_id,
+    category_id:chosenProduct.category_id.toString(),
     name: chosenProduct.name,
     sku:chosenProduct.sku,
     price:chosenProduct.price,
@@ -56,27 +65,29 @@ const onSubmit = (data: ProductScheme) => {
 
     <ScrollArea className="h-72 w-full rounded-md border p-3">
       
-      <FormField
-        control={form.control}
-        name="company_id"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel className='mb-1'>Company Id</FormLabel>
-            <FormControl>
-              <Input className='mb-2' {...field} onChange={(e)=>field.onChange(Number(e.target.value))}/>
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
+      
       <FormField
         control={form.control}
         name="category_id"
         render={({ field }) => (
           <FormItem>
-            <FormLabel className='mb-1'>Category Id</FormLabel>
+            <FormLabel className='mb-1'>Category</FormLabel>
             <FormControl>
-              <Input className='mb-2' {...field} onChange={(e)=>field.onChange(Number(e.target.value))}/>
+               <Select 
+               onValueChange={field.onChange}
+               value={field.value}
+               >
+      <SelectTrigger className="w-full max-w-48">
+        <SelectValue placeholder="Select a category" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          <SelectLabel>Categories</SelectLabel>
+          {data?.data.map((category)=> <SelectItem key={category.id} value={`${category.id}`}>{category.name}</SelectItem>)}
+        
+        </SelectGroup>
+      </SelectContent>
+    </Select>
             </FormControl>
             <FormMessage />
           </FormItem>
