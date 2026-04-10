@@ -23,7 +23,8 @@ export default async function DashboardLayout({ children }: Readonly<{
   }
   return (
     <div className="">
-      <SuperAdminBanner session={session}/>
+      {isSuperAdmin&&
+      <SuperAdminBanner session={session}/>}
       <NavBarWSideBar />
       
       <SidebarClientLayout >

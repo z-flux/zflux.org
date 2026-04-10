@@ -27,7 +27,7 @@ export async function GET(req: NextRequest) {
 if (isSuperAdmin && companyId) {
   headers["X-Company-id"] = companyId.toString()
 }
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API}/dashboard/products`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API}/products`, {
     headers
   })
 

@@ -137,7 +137,7 @@ export function AppSidebar() {
   <SidebarMenuItem>
     <SidebarMenuButton asChild>
       <Link href="/dashboard/stocks">
-        <span>Stocks</span>
+        <span>Inventory & Items</span>
       </Link>
     </SidebarMenuButton>
   </SidebarMenuItem>

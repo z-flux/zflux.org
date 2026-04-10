@@ -13,6 +13,7 @@ import { product, ProductScheme } from '@/schemas/productSchema'
 import { createProduct } from '../_Actions/createProduct'
 import { Categories } from '@/interfaces/categories'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { redirect } from 'next/navigation'
 
 
 export default function AddProduct() {
@@ -29,9 +30,7 @@ export default function AddProduct() {
   defaultValues: {
     category_id:"",
     name: "",
-    sku:"",
     price:"",
-    is_active:true
   },
 })
 const [open, setOpen] = React.useState(false)
@@ -48,116 +47,116 @@ const onSubmit = (data: ProductScheme) => {
 
 
   return (
-    <AlertDialog open={open} onOpenChange={setOpen}>
-  <AlertDialogTrigger asChild>
-<Button variant="outline" className="ml-auto">
+  //   <AlertDialog open={open} onOpenChange={setOpen}>
+  // <AlertDialogTrigger asChild>
+<Button variant="outline" className="ml-auto" onClick={()=>redirect("/dashboard/products/addproduct")}>
               Add New <i className="fa-solid fa-plus text-xs"></i>
             </Button>    
-  </AlertDialogTrigger>
-  <AlertDialogContent className='z-50'>
+//   </AlertDialogTrigger>
+//   <AlertDialogContent className='z-50'>
     
-    <AlertDialogHeader>
-      <AlertDialogTitle>Create Product</AlertDialogTitle>
-        </AlertDialogHeader>
-    <Form {...form}>
-  <form onSubmit={form.handleSubmit(onSubmit)} className="">
+//     <AlertDialogHeader>
+//       <AlertDialogTitle>Create Product</AlertDialogTitle>
+//         </AlertDialogHeader>
+//     <Form {...form}>
+//   <form onSubmit={form.handleSubmit(onSubmit)} className="">
 
-    <ScrollArea className="h-72 w-full rounded-md border p-3">
+//     <ScrollArea className="h-72 w-full rounded-md border p-3">
       
-      <FormField
-        control={form.control}
-        name="category_id"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel className='mb-1'>Category</FormLabel>
-            <FormControl>
-               <Select 
-               onValueChange={field.onChange}
-               value={field.value}
-               >
-      <SelectTrigger className="w-full max-w-48">
-        <SelectValue placeholder="Select a category" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
-          <SelectLabel>Categories</SelectLabel>
-          {data?.data.map((category)=> <SelectItem key={category.id} value={`${category.id}`}>{category.name}</SelectItem>)}
+//       <FormField
+//         control={form.control}
+//         name="category_id"
+//         render={({ field }) => (
+//           <FormItem>
+//             <FormLabel className='mb-1'>Category</FormLabel>
+//             <FormControl>
+//                <Select 
+//                onValueChange={field.onChange}
+//                value={field.value}
+//                >
+//       <SelectTrigger className="w-full max-w-48">
+//         <SelectValue placeholder="Select a category" />
+//       </SelectTrigger>
+//       <SelectContent>
+//         <SelectGroup>
+//           <SelectLabel>Categories</SelectLabel>
+//           {data?.data.map((category)=> <SelectItem key={category.id} value={`${category.id}`}>{category.name}</SelectItem>)}
         
-        </SelectGroup>
-      </SelectContent>
-    </Select>
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <FormField
-        control={form.control}
-        name="name"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel className='mb-1'>Name</FormLabel>
-            <FormControl>
-              <Input className='mb-2' {...field} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <FormField
-        control={form.control}
-        name="sku"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel className='mb-1'>sku</FormLabel>
-            <FormControl>
-              <Input className='mb-2' {...field} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
+//         </SelectGroup>
+//       </SelectContent>
+//     </Select>
+//             </FormControl>
+//             <FormMessage />
+//           </FormItem>
+//         )}
+//       />
+//       <FormField
+//         control={form.control}
+//         name="name"
+//         render={({ field }) => (
+//           <FormItem>
+//             <FormLabel className='mb-1'>Name</FormLabel>
+//             <FormControl>
+//               <Input className='mb-2' {...field} />
+//             </FormControl>
+//             <FormMessage />
+//           </FormItem>
+//         )}
+//       />
+//       <FormField
+//         control={form.control}
+//         name="sku"
+//         render={({ field }) => (
+//           <FormItem>
+//             <FormLabel className='mb-1'>sku</FormLabel>
+//             <FormControl>
+//               <Input className='mb-2' {...field} />
+//             </FormControl>
+//             <FormMessage />
+//           </FormItem>
+//         )}
+//       />
     
-<FormField
-        control={form.control}
-        name="price"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel className='mb-1'>Price</FormLabel>
-            <FormControl>
-              <Input className='mb-2' {...field} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-    <FormField
-          control={form.control}
-          name="is_active"
-          render={({ field }) => (
-            <FormItem className="flex items-center gap-4 my-2">
-              <FormControl>
-                <Switch
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                />
-              </FormControl>
-              <FormLabel>Is Active</FormLabel>
-            </FormItem>
-          )}
-        />
+// <FormField
+//         control={form.control}
+//         name="price"
+//         render={({ field }) => (
+//           <FormItem>
+//             <FormLabel className='mb-1'>Price</FormLabel>
+//             <FormControl>
+//               <Input className='mb-2' {...field} />
+//             </FormControl>
+//             <FormMessage />
+//           </FormItem>
+//         )}
+//       />
+//     <FormField
+//           control={form.control}
+//           name="is_active"
+//           render={({ field }) => (
+//             <FormItem className="flex items-center gap-4 my-2">
+//               <FormControl>
+//                 <Switch
+//                   checked={field.value}
+//                   onCheckedChange={field.onChange}
+//                 />
+//               </FormControl>
+//               <FormLabel>Is Active</FormLabel>
+//             </FormItem>
+//           )}
+//         />
 
 
     
-</ScrollArea>
+// </ScrollArea>
 
-<AlertDialogFooter className='mt-4'>
-  <AlertDialogCancel type='button'>Cancel</AlertDialogCancel>
-  <Button type='submit'>Create</Button>
-</AlertDialogFooter>
-  </form>
-</Form>
-</AlertDialogContent>
-</AlertDialog>
+// <AlertDialogFooter className='mt-4'>
+//   <AlertDialogCancel type='button'>Cancel</AlertDialogCancel>
+//   <Button type='submit'>Create</Button>
+// </AlertDialogFooter>
+//   </form>
+// </Form>
+// </AlertDialogContent>
+// </AlertDialog>
   )
 }

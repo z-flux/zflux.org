@@ -8,7 +8,7 @@ export const branchSchema = z.object({
     address:z.string().nonempty('address is required').min(3, "address must be at least 3 characters"),
     city:z.string().nonempty('city is required').min(3, "city must be at least 3 characters"),
     country:z.string().nonempty('country is required').min(3, "country must be at least 3 characters"),
-    postal_code:z.number().nonnegative().nonoptional(),
+    postal_code:z.string().nonempty("postal code is required"),
     is_main:z.boolean(),
     status:z.string().min(3, "status must be at least 3 characters").nonempty('status is required'),
     manager_name: z.string().nonempty('manager name is required').min(3, "manager Name must be at least 3 characters"),

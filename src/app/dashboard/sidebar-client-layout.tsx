@@ -16,7 +16,7 @@ export default function SidebarClientLayout({
   return (
     <SidebarProvider>
       <AppSidebar />
-        <SidebarTrigger className={`ml-2 sticky z-50 ${isSuperAdmin==true?"top-10":""}`}/>
+        <SidebarTrigger className={`ml-2 sticky z-50 ${isSuperAdmin==true?"top-10":"top-2"}`}/>
         {children}
     </SidebarProvider>
   )

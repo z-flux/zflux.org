@@ -10,15 +10,14 @@ import Unauthorized from '@/app/_Components/Unauthorized'
 
 
 export default function Page() {
-const fetchBranches = async () => {
-  const res = await fetch('/api/dashboard/branches')
-  if (!res.ok) throw new Error('FETCH_FAILED')
-  return res.json()
-}
+
   const { data, isLoading } = useQuery<Branches>({
     queryKey: ['branches'],
-    queryFn: fetchBranches,
-   
+    queryFn: async () => {
+  const res = await fetch('/api/dashboard/branches')
+  const payload = await res.json()
+  return payload
+},
   })
   const{can} = usePermission()
 

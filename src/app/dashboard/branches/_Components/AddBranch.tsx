@@ -26,7 +26,7 @@ export default function AddBranch() {
     address: "",
     city: "",
     country: "",
-    postal_code: 0,
+    postal_code: "",
     is_main: false,
     status: "",
     manager_name: "",
@@ -180,7 +180,7 @@ const onSubmit = (data: BranchSchema) => {
           <FormItem>
             <FormLabel className='mb-1'>Postal Code</FormLabel>
             <FormControl>
-              <Input className='mb-2' {...field} onChange={(e) => field.onChange(Number(e.target.value))}/>
+              <Input className='mb-2' {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>

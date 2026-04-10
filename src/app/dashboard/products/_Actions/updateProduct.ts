@@ -3,7 +3,7 @@
 import { AuthOptions } from '@/authOptions'
 import { getToken } from 'next-auth/jwt'
 import { getServerSession } from 'next-auth'
-import { getCookie } from 'cookies-next'
+import { cookies } from 'next/headers'
 import GetAuthToken from "@/GetAuthToken"
 import { ProductScheme } from "@/schemas/productSchema"
 
@@ -14,7 +14,7 @@ export async function updateProduct({id,data}:{id:number,data:ProductScheme}){
     }
     const session = await getServerSession(AuthOptions)
     const isSuperAdmin=session?.user?.user.is_super_admin
-    const companyId = await getCookie("company-id")
+    const companyId = (await cookies()).get("company-id")?.value
     const headers: HeadersInit = {
             Authorization:`Bearer ${token}`,
             accept:'application/json',
@@ -24,7 +24,7 @@ export async function updateProduct({id,data}:{id:number,data:ProductScheme}){
     if (isSuperAdmin && companyId) {
         headers["X-Company-id"] = companyId.toString()
     }
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API}/dashboard/products/${id}`,{
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API}/products/${id}`,{
         method:'PUT',
         headers:headers,
         body:JSON.stringify(data)

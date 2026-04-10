@@ -3,7 +3,7 @@
 import { AuthOptions } from '@/authOptions'
 import { getToken } from 'next-auth/jwt'
 import { getServerSession } from 'next-auth'
-import { getCookie } from 'cookies-next'
+import { cookies } from 'next/headers'
 import GetAuthToken from "@/GetAuthToken"
 import { CustomerScheme } from "@/schemas/customerSchema"
 
@@ -15,7 +15,7 @@ export async function createCustomer({data}:{data:CustomerScheme}){
     }
     const session =await getServerSession(AuthOptions)
     const isSuperAdmin=session?.user?.user.is_super_admin
-    const companyId = await getCookie("company-id")
+    const companyId = (await cookies()).get("company-id")?.value
     const headers: HeadersInit = {
             Authorization:`Bearer ${token}`,
             accept:'application/json',

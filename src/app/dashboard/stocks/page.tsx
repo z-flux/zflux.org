@@ -1,11 +1,10 @@
 'use client'
 
 import {  useQuery } from '@tanstack/react-query'
-import { DataTable } from '../../_Components/data-table'
-import { columns } from './columns'
 import { Stocks } from '@/interfaces/stocks'
 import { usePermission } from '@/hooks/usePermission'
 import Unauthorized from '@/app/_Components/Unauthorized'
+import Inventory from './_Components/Inventory'
 
 
 export default function Page() {
@@ -23,7 +22,7 @@ export default function Page() {
     
     <div className="min-h-screen">
       
-      <div className="w-[90%] mx-auto py-10">
+      <div className="w-[95%] mx-auto py-10">
         
         {isLoading ? (
           <div className="min-h-screen -mt-4 flex justify-center items-center">
@@ -33,7 +32,7 @@ export default function Page() {
           <>
             <div className="w-full">
               {can("view_stocks")?
-              <DataTable columns={columns} data={data!.data} />:
+              <Inventory></Inventory>:
               <Unauthorized/>}
             </div>
           </>
