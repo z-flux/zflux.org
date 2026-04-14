@@ -78,10 +78,6 @@ export const columns : ColumnDef<User>[] = [
     header: "Company",
   },
   {
-    accessorKey: "branch.id",
-    header: "Branch ",
-  },
-  {
     id: "actions",
     cell: ({ row }) => {
       const user = row.original

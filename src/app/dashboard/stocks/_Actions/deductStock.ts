@@ -5,7 +5,7 @@ import { getToken } from 'next-auth/jwt'
 import { getServerSession } from 'next-auth'
 import { cookies } from 'next/headers'
 import GetAuthToken from "@/GetAuthToken"
-import { StockScheme } from '@/schemas/updateStockSchema'
+import { StockScheme } from '@/schemas/StockPurchaseSchema'
 
 
 export async function deductStock({data}:{data:StockScheme}){

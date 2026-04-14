@@ -1,33 +1,34 @@
 export interface Products {
   success: boolean
   message: string
+  data: Data
+}
+
+export interface Data {
+  current_page: number
   data: Product[]
+  first_page_url: string
+  from: number
+  last_page: number
+  last_page_url: string
+  links: Link[]
+  next_page_url: any
+  path: string
+  per_page: number
+  prev_page_url: any
+  to: number
+  total: number
 }
 
 export interface Product {
   id: number
-  company_id: number
-  category_id: number
-  subcategory_id: any
   name: string
-  sku: string
-  description: any
-  price: string
-  image: any
-  is_active: boolean
-  category: any
-  subcategory: any
-  stocks: Stock[]
   created_at: string
-  updated_at: string
+  variants_count: number
 }
 
-export interface Stock {
-  id: number
-  product_id: number
-  branch_id: number
-  quantity: number
-  min_limit: number
-  created_at: string
-  updated_at: string
+export interface Link {
+  url?: string
+  label: string
+  active: boolean
 }

@@ -10,25 +10,35 @@ import { product, ProductScheme } from '@/schemas/productSchema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from '@/components/ui/button'
 import { Item, Items } from '@/interfaces/items'
-import { IngredientPicker } from './IngredientPicker'
 import { createProduct } from '../../_Actions/createProduct'
-import { redirect } from 'next/navigation';
+import { redirect, useParams } from 'next/navigation';
+import { IngredientPicker } from '../../addproduct/_Components/IngredientPicker'
+import { Product } from '@/interfaces/products'
+import { SingleProduct } from '@/interfaces/singleProduct'
+import { toast } from 'react-hot-toast';
+import { ingredient } from './../../../../../schemas/ingredientSchema';
+import { updateProduct } from '../../_Actions/updateProduct'
 
-export default function AddProduct() {
+export default function UpdateProduct({prod}:{prod:SingleProduct}) {
 
     const form = useForm<ProductScheme>({
   resolver: zodResolver(product),
   defaultValues: {
-    subcategory_id:"",
-    name: "",
-    variants:[{
-      sku:"",
-      variant_name:"",
-      selling_price:"",
-      ingredients:[]
-    }],
+    subcategory_id: prod?.data.subcategory_id?.toString() ,
+    name: prod?.data.name ,
+    variants: prod?.data.variants?.map(variant => ({
+      sku: variant.sku,
+      variant_name: variant.name,
+      selling_price: variant.selling_price,
+      ingredients: variant.ingredients?.map(ingredient => ({
+        item_id: ingredient.item_id.toString(),
+        quantity: parseFloat(ingredient.quantity),
+        unit_id: ingredient.unit_id.toString()
+      })) 
+    })) ,
   },
 })
+
   const queryClient = useQueryClient()
       const { data } = useQuery<Categories>({
     queryKey: ['categories'],
@@ -46,11 +56,13 @@ export default function AddProduct() {
   return payload
 },
   })
-  const {mutate} = useMutation({mutationKey:['products'],mutationFn:createProduct})
+  const {mutate} = useMutation({mutationKey:['products'],mutationFn:updateProduct})
 const onSubmit = (data: ProductScheme) => {
- mutate({data},{onSuccess:()=>(queryClient.invalidateQueries({queryKey:['products']})
-)})
-form.reset()
+ mutate({data,id:prod.data.id},{onSuccess:(res)=>{
+    queryClient.invalidateQueries({queryKey:['products']})
+    toast(res.message,{position:'top-right',duration:3000})
+}})
+
 }
 const {fields:variants, append, remove}= useFieldArray({
   control:form.control,
@@ -82,7 +94,7 @@ function deleteVariant(index:number){
   }
   }
 }
-function onSelect(item: Item) {
+function onIngredientSelect(item: Item) {
   if (!currentIngredients.some((i) => i.item_id === item.id.toString())) {
     const updated = [
       ...currentIngredients,
@@ -97,7 +109,7 @@ function onSelect(item: Item) {
     });
   }
 }
-function removeIng(index: number) {
+function removeIngredient(index: number) {
   const updated = currentIngredients.filter((_, i) => i !== index);
   form.setValue(`variants.${selectedVariantIndex}.ingredients`, updated, {
     shouldValidate: true,
@@ -106,7 +118,7 @@ function removeIng(index: number) {
   return (
     <div className="bg-gray-50 dark:bg-[#171717] p-8 rounded-2xl ">
       <div className="flex justify-between items-start mb-6">
-        <h1 className="text-2xl font-bold">Create New Product</h1>
+        <h1 className="text-2xl font-bold">Update Product</h1>
         <i onClick={()=>redirect("/dashboard/products")} className="fa-solid fa-xmark text-sm text-gray-800 dark:text-gray-400 cursor-pointer"></i>
       </div>
        <Form {...form}>
@@ -214,7 +226,7 @@ function removeIng(index: number) {
     </div>
     <div className='flex w-full gap-4 mt-4'>
       <div className='w-1/2'>
-    <IngredientPicker data={items} onSelect={onSelect}/>
+    <IngredientPicker data={items} onSelect={onIngredientSelect}/>
     </div>
     <div className='w-1/2 border rounded-lg p-5 flex flex-col gap-2 min-h-40'>
     {currentIngredients.length>0 ?<>{currentIngredients.map((ingredient,index)=>(
@@ -234,7 +246,7 @@ function removeIng(index: number) {
           </FormItem>
         )}
       />
-      <i onClick={()=>removeIng(index)} className='fa-regular fa-trash-can text-sm text-red-600 cursor-pointer z-10'></i>
+      <i onClick={()=>removeIngredient(index)} className='fa-regular fa-trash-can text-sm text-red-600 cursor-pointer z-10'></i>
           </div>
           </div>
         ))}</>
@@ -248,7 +260,7 @@ function removeIng(index: number) {
         
     </div>
     <div className='w-full flex'>
-      <Button type='submit' className='w-1/3 font-semibold text-lg mt-4 ml-auto rounded-lg'>Create Product</Button>
+      <Button type='submit' className='w-1/3 font-semibold text-lg mt-4 ml-auto rounded-lg'>Update Product</Button>
     </div>
     
   </form>

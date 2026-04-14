@@ -4,9 +4,9 @@ import {  useQuery } from '@tanstack/react-query'
 import { DataTable } from '../../_Components/data-table'
 import { columns } from './columns'
 import { Products } from '@/interfaces/products'
-import AddProduct from './_Components/AddProduct'
 import { usePermission } from '@/hooks/usePermission'
 import Unauthorized from '@/app/_Components/Unauthorized'
+import AddProductBtn from './_Components/AddProductBtn'
 
 
 export default function Page() {
@@ -35,9 +35,9 @@ export default function Page() {
           <>
             <div className="w-full">
               {can("create_products")&&
-              <AddProduct></AddProduct>}
+              <AddProductBtn></AddProductBtn>}
               {can("view_products")?
-              <DataTable columns={columns} data={data!.data} />:
+              <DataTable columns={columns} data={data!.data.data} />:
               <Unauthorized/>
               }
             </div>

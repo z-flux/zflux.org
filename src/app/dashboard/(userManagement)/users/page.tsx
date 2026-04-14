@@ -17,17 +17,18 @@ import Unauthorized from '@/app/_Components/Unauthorized'
 
 
 export default function Page() {
-const fetchUsers = async () => {
-  const res = await fetch('/api/dashboard/users')
-  if (!res.ok) throw new Error('FETCH_FAILED')
-  return res.json()
-}
+
   const { data, isLoading } = useQuery<Users>({
     queryKey: ['users'],
-    queryFn: fetchUsers,
+    queryFn: async () => {
+  const res = await fetch('/api/dashboard/users')
+ const payload = await res.json()
+  return payload
+},
    
   })
   const {can} = usePermission()
+console.log(data);
 
   return (
     <div className="min-h-screen">

@@ -5,9 +5,8 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Product } from "@/interfaces/products"
 import { ColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown } from "lucide-react"
-import UpdateProduct from "./_Components/UpdateProduct"
-import PopUpMessage from "./_Components/PopUpMessage"
 import { usePermission } from "@/hooks/usePermission"
+import UpdateProductBtn from "./_Components/UpdateProductBtn"
 
 export const columns : ColumnDef<Product>[] = [
    {
@@ -37,14 +36,6 @@ export const columns : ColumnDef<Product>[] = [
     header: "Id",
   },
   {
-    accessorKey: "company_id",
-    header: "Company Id",
-  },
-  {
-    accessorKey: "category_id",
-    header: "Category Id",
-  },
-  {
     accessorKey: "name",
     header: ({ column }) => {
       return (
@@ -60,29 +51,20 @@ export const columns : ColumnDef<Product>[] = [
     },
   },
   {
-    accessorKey: "description",
-    header: "Description",
-  },
-  {
-    accessorKey: "price",
-    header: "Price",
-  },
-  {
-    accessorKey: "is_active",
-    header: "Is Active",
+    accessorKey: "variants_count",
+    header: "Variants Count",
   },
   {
       id: "actions",
       cell: ({ row }) => {
         const product = row.original
         const {can} = usePermission()
-  
+   
         return (
-          <div className="flex gap-4 items-center me-4">
+          <div className="flex gap-4  items-center me-4">
             {can("edit_products")&&
-              <UpdateProduct chosenProduct={product}></UpdateProduct>}
-            {can("delete_products")&&
-              <PopUpMessage id={product.id}></PopUpMessage>}
+            <UpdateProductBtn chosenProduct={product}></UpdateProductBtn>
+            }
           </div>
         )
       },
