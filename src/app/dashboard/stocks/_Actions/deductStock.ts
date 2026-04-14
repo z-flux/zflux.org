@@ -5,10 +5,11 @@ import { getToken } from 'next-auth/jwt'
 import { getServerSession } from 'next-auth'
 import { cookies } from 'next/headers'
 import GetAuthToken from "@/GetAuthToken"
-import { StockScheme } from '@/schemas/StockPurchaseSchema'
+import { StockWasteScheme } from '@/schemas/StockWasteSchema'
 
 
-export async function deductStock({data}:{data:StockScheme}){
+
+export async function deductStock({data}:{data:StockWasteScheme}){
     const token = await GetAuthToken()
     if(!token){
         throw new Error('Unauthorized!')
