@@ -35,7 +35,8 @@ export default function StocksTable() {
       </tr>
     </thead>
     <tbody>
-        {data?.data.map((item)=>(
+      {data?.data && data.data.length > 0 ? <>
+      {data.data.map((item)=>(
             <tr key={item.id} className="bg-neutral-primary border-b ">
               <td scope="row" className="px-6 py-4 font-medium text-heading whitespace-nowrap">
           {item.item.name}
@@ -52,7 +53,11 @@ export default function StocksTable() {
         </td>
       </tr>
         ))}
-      
+      </> : <>
+      <tr className='text-center my-auto h-40 '>
+        <td colSpan={4}>No items</td>
+      </tr>
+      </> }
       
     </tbody>
   </table>

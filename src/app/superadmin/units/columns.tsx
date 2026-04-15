@@ -2,15 +2,15 @@
 
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Product } from "@/interfaces/products"
+import { Unit } from "@/interfaces/units"
 import { ColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown } from "lucide-react"
-import { usePermission } from "@/hooks/usePermission"
-import UpdateProductBtn from "./_Components/UpdateProductBtn"
+import UpdateUnit from "./_Components/UpdateUnit"
 import PopUpMessage from "./_Components/PopUpMessage"
 
-export const columns : ColumnDef<Product>[] = [
-   {
+
+export const columns : ColumnDef<Unit>[] = [
+  {
     id: "select",
     header: ({ table }) => (
       <Checkbox
@@ -45,32 +45,31 @@ export const columns : ColumnDef<Product>[] = [
           className="font-semibold"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Product Name
+          Company Name
           <ArrowUpDown className="ml-2 h-4 w-4 " />
         </Button>
       )
     },
   },
   {
-    accessorKey: "variants_count",
-    header: "Variants Count",
+    accessorKey: "symbol",
+    header: "Symbol",
   },
   {
-      id: "actions",
-      cell: ({ row }) => {
-        const product = row.original
-        const {can} = usePermission()
-   
-        return (
-          <div className="flex gap-4  items-center me-4">
-            {can("edit_products")&&
-            <UpdateProductBtn chosenProduct={product}></UpdateProductBtn>
-            }
-            {can("delete_products")&&
-            <PopUpMessage id={product.id}></PopUpMessage>
-            }
-          </div>
-        )
-      },
+    accessorKey: "type",
+    header: "Type",
+  },
+  {
+    id: "actions",
+    cell: ({ row }) => {
+      const unit = row.original
+ 
+      return (
+        <div className="flex gap-4  items-center me-4">
+            <UpdateUnit chosenUnit={unit}></UpdateUnit>
+            <PopUpMessage id={unit.id}></PopUpMessage>
+        </div>
+      )
     },
+  },
 ]

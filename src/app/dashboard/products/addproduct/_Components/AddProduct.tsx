@@ -1,10 +1,9 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { Categories } from '@/interfaces/categories'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { product, ProductScheme } from '@/schemas/productSchema'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -13,6 +12,7 @@ import { Item, Items } from '@/interfaces/items'
 import { IngredientPicker } from './IngredientPicker'
 import { createProduct } from '../../_Actions/createProduct'
 import { redirect } from 'next/navigation';
+import { Subcategories } from '@/interfaces/subcategory'
 
 export default function AddProduct() {
 
@@ -30,10 +30,10 @@ export default function AddProduct() {
   },
 })
   const queryClient = useQueryClient()
-      const { data } = useQuery<Categories>({
-    queryKey: ['categories'],
+      const { data } = useQuery<Subcategories>({
+    queryKey: ['subcategories'],
     queryFn: async () => {
-  const res = await fetch('/api/dashboard/categories')
+  const res = await fetch('/api/dashboard/subcategories')
   const payload = await res.json()
   return payload
 },

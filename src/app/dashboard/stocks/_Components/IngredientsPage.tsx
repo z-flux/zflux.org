@@ -1,23 +1,16 @@
 'use client'
-import React, { useState } from 'react'
-import StocksTable from './StocksTable'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { Branches } from '@/interfaces/branch'
 import { Input } from '@/components/ui/input'
-import { Items } from '@/interfaces/items'
-import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
-import { addStock } from '../_Actions/addStock'
-import { deductStock } from '../_Actions/deductStock'
 import { ingredient, IngredientScheme } from '@/schemas/ingredientSchema'
 import { Units } from '@/interfaces/units'
 import IngredientsTable from './IngredientsTable'
 import { addIngredient } from '../_Actions/addIngredient'
+import toast from 'react-hot-toast'
 
 export default function IngredientsPage() {
     const form = useForm<IngredientScheme>({
@@ -44,7 +37,11 @@ export default function IngredientsPage() {
   const queryClient = useQueryClient()
 
     function handleSubmit(data:IngredientScheme){
-        mutate({data},{onSuccess:()=>queryClient.invalidateQueries({queryKey:['items']})})
+        mutate({data},{onSuccess:(res)=>{
+          queryClient.invalidateQueries({queryKey:['items']})
+        toast(res.message,{position:'top-right',duration:3000})
+        }})
+        form.reset()
     }
     
   return (

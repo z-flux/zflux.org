@@ -47,6 +47,7 @@ function handleSubmit(data:StockPurchaseScheme){
       onSuccess: (res) => {queryClient.invalidateQueries({ queryKey: ['stocks'] })
       toast(res.message,{position:'top-right',duration:3000})
 }})
+  form.reset()
 }
   return (
     <div><Form {...form}>
@@ -112,7 +113,7 @@ function handleSubmit(data:StockPurchaseScheme){
           <FormItem className=''>
             <FormLabel className='mb-1'>Quantity (in purchase unit)</FormLabel>
             <FormControl>
-              <Input className='mb-2 ' type='number' {...field} onChange={(e) => field.onChange(Number(e.target.value))}/>
+              <Input className='mb-2 '  {...field} onChange={(e) => field.onChange(Number(e.target.value))}/>
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -132,7 +133,6 @@ function handleSubmit(data:StockPurchaseScheme){
         )}
       />
      <Button type="submit" className='w-full py-4 text-lg rounded-lg font-semibold' >Record Purchase</Button>
-    {/* <Button type="submit" className='w-full py-4 text-lg rounded-lg font-semibold bg-red-600 hover:bg-red-500'  >Record Waste</Button> */}
     </form>
   </Form></div>
   )

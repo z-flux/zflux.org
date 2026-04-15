@@ -49,6 +49,7 @@ function handleSubmit(data:StockWasteScheme){
       onSuccess: (res) => {queryClient.invalidateQueries({ queryKey: ['stocks'] })
       toast(res.message,{position:'top-right',duration:3000})
 }})
+form.reset()
 }
   return (
     <div><Form {...form}>
@@ -114,7 +115,7 @@ function handleSubmit(data:StockWasteScheme){
           <FormItem className=''>
             <FormLabel className='mb-1'>Quantity (in base unit)</FormLabel>
             <FormControl>
-              <Input className='mb-2 ' type='number' {...field} onChange={(e) => field.onChange(Number(e.target.value))}/>
+              <Input className='mb-2 '  {...field} onChange={(e) => field.onChange(Number(e.target.value))}/>
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -128,7 +129,7 @@ function handleSubmit(data:StockWasteScheme){
           <FormItem className=''>
             <FormLabel className='mb-1'>Reference Type</FormLabel>
             <FormControl>
-              <Textarea className='mb-2' {...field}/>
+              <Input className='mb-2' {...field}/>
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -141,7 +142,7 @@ function handleSubmit(data:StockWasteScheme){
           <FormItem className=''>
             <FormLabel className='mb-1'>Reference Id (optional)</FormLabel>
             <FormControl>
-              <Textarea className='mb-2' {...field}/>
+              <Input className='mb-2' {...field}/>
             </FormControl>
             <FormMessage />
           </FormItem>

@@ -1,23 +1,20 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { Categories } from '@/interfaces/categories'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { product, ProductScheme } from '@/schemas/productSchema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from '@/components/ui/button'
 import { Item, Items } from '@/interfaces/items'
-import { createProduct } from '../../_Actions/createProduct'
-import { redirect, useParams } from 'next/navigation';
+import { redirect } from 'next/navigation';
 import { IngredientPicker } from '../../addproduct/_Components/IngredientPicker'
-import { Product } from '@/interfaces/products'
 import { SingleProduct } from '@/interfaces/singleProduct'
 import { toast } from 'react-hot-toast';
-import { ingredient } from './../../../../../schemas/ingredientSchema';
 import { updateProduct } from '../../_Actions/updateProduct'
+import { Subcategories } from '@/interfaces/subcategory'
 
 export default function UpdateProduct({prod}:{prod:SingleProduct}) {
 
@@ -40,10 +37,10 @@ export default function UpdateProduct({prod}:{prod:SingleProduct}) {
 })
 
   const queryClient = useQueryClient()
-      const { data } = useQuery<Categories>({
-    queryKey: ['categories'],
+      const { data } = useQuery<Subcategories>({
+    queryKey: ['subcategories'],
     queryFn: async () => {
-  const res = await fetch('/api/dashboard/categories')
+  const res = await fetch('/api/dashboard/subcategories')
   const payload = await res.json()
   return payload
 },
@@ -62,7 +59,7 @@ const onSubmit = (data: ProductScheme) => {
     queryClient.invalidateQueries({queryKey:['products']})
     toast(res.message,{position:'top-right',duration:3000})
 }})
-
+  form.reset()
 }
 const {fields:variants, append, remove}= useFieldArray({
   control:form.control,

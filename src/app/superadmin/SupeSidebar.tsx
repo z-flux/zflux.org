@@ -43,7 +43,14 @@ export function SuperSidebar() {
       </Link>
     </SidebarMenuButton>
   </SidebarMenuItem>
-
+      
+  <SidebarMenuItem>
+    <SidebarMenuButton asChild>
+      <Link href="/superadmin/units">
+        <span>Units</span>
+      </Link>
+    </SidebarMenuButton>
+  </SidebarMenuItem>
 
   
 </SidebarMenu>

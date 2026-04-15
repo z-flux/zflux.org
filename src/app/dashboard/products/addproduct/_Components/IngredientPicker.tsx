@@ -1,11 +1,10 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import {
   Popover,
   PopoverAnchor,
-  PopoverContent,
-  PopoverTrigger,
+  PopoverContent
 } from "@/components/ui/popover";
 import {
   Command,
