@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/command";
 import { Input } from "@/components/ui/input";
 import { Item, Items } from "@/interfaces/items";
+import AddIngredientPopUp from "./AddIngredientPopUp";
 
 export function IngredientPicker({
   onSelect,
@@ -52,7 +53,7 @@ export function IngredientPicker({
         >
           <Command>
             <CommandList>
-              <CommandEmpty>No results</CommandEmpty>
+              <CommandEmpty><AddIngredientPopUp/></CommandEmpty>
 
               {items.map((item) => (
                 item.name.toLowerCase().includes(searchTerm.toLowerCase())&&

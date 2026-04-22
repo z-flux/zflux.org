@@ -11,6 +11,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { unit, UnitScheme } from '@/schemas/unitSchema'
 import { createUnit } from '../_Actions/createUnit'
 import toast from 'react-hot-toast'
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select'
 
 
 export default function AddUnit() {
@@ -75,7 +76,22 @@ form.reset()
           <FormItem className=''>
             <FormLabel className='mb-1'>Type</FormLabel>
             <FormControl>
-              <Input className='mb-2' {...field}/>
+              <Select 
+               onValueChange={field.onChange}
+               value={field.value}
+               >
+      <SelectTrigger className="w-full">
+        <SelectValue placeholder="Select a type" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          <SelectLabel>Types</SelectLabel>
+           <SelectItem  value={`weight`}>Weight</SelectItem>
+        <SelectItem  value={`volume`}>Volume</SelectItem>
+        <SelectItem  value={`piece`}>Piece</SelectItem>
+        </SelectGroup>
+      </SelectContent>
+    </Select>
             </FormControl>
             <FormMessage />
           </FormItem>

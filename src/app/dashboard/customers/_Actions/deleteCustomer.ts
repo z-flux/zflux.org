@@ -22,7 +22,7 @@ export async function deleteCustomer({id}:{id:number}){
     if (isSuperAdmin && companyId) {
         headers["X-Company-id"] = companyId.toString()
     }
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API}/dashboard/customers/${id}`,{
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API}/crm/customers/${id}`,{
         method:'DELETE',
         headers:headers
     })

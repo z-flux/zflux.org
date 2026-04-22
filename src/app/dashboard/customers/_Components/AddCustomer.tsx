@@ -19,7 +19,9 @@ export default function AddCustomer() {
   defaultValues: {
     name: "",
     phone:"",
-    email:""
+    email:"",
+    address:"",
+    is_active:true
   },
 })
 const [open, setOpen] = React.useState(false)
@@ -93,8 +95,19 @@ const onSubmit = (data: CustomerScheme) => {
         )}
       />
     
-
-
+<FormField
+        control={form.control}
+        name="address"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel className='mb-1'>Address</FormLabel>
+            <FormControl>
+              <Input className='mb-2' {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
     
 </ScrollArea>
 

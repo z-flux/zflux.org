@@ -25,7 +25,7 @@ export async function createCustomer({data}:{data:CustomerScheme}){
     if (isSuperAdmin && companyId) {
         headers["X-Company-id"] = companyId.toString()
     }
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API}/dashboard/customers`,{
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API}/crm/customers`,{
         method:'POST',
         headers:headers,
         body:JSON.stringify(data)

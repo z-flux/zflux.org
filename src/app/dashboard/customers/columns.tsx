@@ -8,6 +8,7 @@ import { ArrowUpDown } from "lucide-react"
 import PopUpMessage from "./_Components/PopUpMessage"
 import UpdateCustomer from "./_Components/UpdateCustomer"
 import { usePermission } from "@/hooks/usePermission"
+import ToggleActivation from "./_Components/ToggleActivation"
 
 export const columns : ColumnDef<Customer>[] = [
    {
@@ -68,12 +69,20 @@ export const columns : ColumnDef<Customer>[] = [
     header: "Address",
   },
   {
-    accessorKey: "city",
-    header: "City",
-  },
-  {
-    accessorKey: "country",
-    header: "Country",
+    id: "isActive",
+    header:"is Active",
+    cell: ({ row }) => {
+      const customer = row.original
+      const {can} = usePermission()
+
+      return (
+        <div className="">
+          {can("edit_customers")&&
+          <ToggleActivation chosenCustomer={customer} />
+          }
+        </div>
+      )
+    },
   },
   {
     id: "actions",

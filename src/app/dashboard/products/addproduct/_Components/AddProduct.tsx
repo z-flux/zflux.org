@@ -9,7 +9,7 @@ import { product, ProductScheme } from '@/schemas/productSchema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from '@/components/ui/button'
 import { Item, Items } from '@/interfaces/items'
-import { IngredientPicker } from './IngredientPicker'
+import { IngredientPicker } from '../../../_Components/IngredientPicker'
 import { createProduct } from '../../_Actions/createProduct'
 import { redirect } from 'next/navigation';
 import { Subcategories } from '@/interfaces/subcategory'
@@ -132,18 +132,18 @@ function removeIng(index: number) {
         name="subcategory_id"
         render={({ field }) => (
           <FormItem className="w-1/2">
-            <FormLabel className='mb-1'>Category</FormLabel>
+            <FormLabel className='mb-1'>SubCategory</FormLabel>
             <FormControl>
                <Select 
                onValueChange={field.onChange}
                value={field.value}
                >
       <SelectTrigger className="w-full">
-        <SelectValue placeholder="Select a category" />
+        <SelectValue placeholder="Select a subcategory" />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          <SelectLabel>Categories</SelectLabel>
+          <SelectLabel>SubCategories</SelectLabel>
           {data?.data.map((category)=> <SelectItem key={category.id} value={`${category.id}`}>{category.name}</SelectItem>)}
         
         </SelectGroup>
@@ -228,7 +228,7 @@ function removeIng(index: number) {
         render={({ field }) => (
           <FormItem className='w-20'>
             <FormControl>
-              <Input className='' type='number' {...field} onChange={(e)=>field.onChange(Number(e.target.value))}/>
+              <Input className=''  {...field} onChange={(e)=>field.onChange(Number(e.target.value))}/>
             </FormControl>
             <FormMessage />
           </FormItem>

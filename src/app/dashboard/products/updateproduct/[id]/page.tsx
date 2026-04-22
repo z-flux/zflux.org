@@ -4,6 +4,8 @@ import UpdateProduct from '../_Components/UpdateProduct'
 import { useQuery } from '@tanstack/react-query'
 import { SingleProduct } from '@/interfaces/singleProduct'
 import { useParams } from 'next/navigation'
+import { usePermission } from '@/hooks/usePermission'
+import Unauthorized from '@/app/_Components/Unauthorized'
 
 export default function page() {
         const {id} = useParams()

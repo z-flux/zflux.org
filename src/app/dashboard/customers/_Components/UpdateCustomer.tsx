@@ -21,7 +21,9 @@ export default function UpdateCustomer({chosenCustomer}:{chosenCustomer:Customer
   defaultValues: {
     name: chosenCustomer.name,
     phone:chosenCustomer.phone,
-    email:chosenCustomer.email
+    email:chosenCustomer.email,
+    address:chosenCustomer.address??"",
+    is_active:chosenCustomer.is_active
   },
 })
 const [open, setOpen] = React.useState(false)
@@ -92,7 +94,32 @@ const onSubmit = (data: CustomerScheme) => {
           </FormItem>
         )}
       />
-    
+    <FormField
+            control={form.control}
+            name="address"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className='mb-1'>Address</FormLabel>
+                <FormControl>
+                  <Input className='mb-2' {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="is_active"
+            render={({ field }) => (
+              <FormItem className='flex items-center gap-4 my-2'>
+                <FormLabel className=''>Active</FormLabel>
+                <FormControl>
+                  <Switch className='' checked={field.value} onCheckedChange={field.onChange} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
 
     

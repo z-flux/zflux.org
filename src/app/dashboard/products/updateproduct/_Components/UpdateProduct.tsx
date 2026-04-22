@@ -10,7 +10,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from '@/components/ui/button'
 import { Item, Items } from '@/interfaces/items'
 import { redirect } from 'next/navigation';
-import { IngredientPicker } from '../../addproduct/_Components/IngredientPicker'
+import { IngredientPicker } from '../../../_Components/IngredientPicker'
 import { SingleProduct } from '@/interfaces/singleProduct'
 import { toast } from 'react-hot-toast';
 import { updateProduct } from '../../_Actions/updateProduct'
@@ -141,18 +141,18 @@ function removeIngredient(index: number) {
         name="subcategory_id"
         render={({ field }) => (
           <FormItem className="w-1/2">
-            <FormLabel className='mb-1'>Category</FormLabel>
+            <FormLabel className='mb-1'>SubCategory</FormLabel>
             <FormControl>
                <Select 
                onValueChange={field.onChange}
                value={field.value}
                >
       <SelectTrigger className="w-full">
-        <SelectValue placeholder="Select a category" />
+        <SelectValue placeholder="Select a subcategory" />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          <SelectLabel>Categories</SelectLabel>
+          <SelectLabel>SubCategories</SelectLabel>
           {data?.data.map((category)=> <SelectItem key={category.id} value={`${category.id}`}>{category.name}</SelectItem>)}
         
         </SelectGroup>
@@ -237,7 +237,7 @@ function removeIngredient(index: number) {
         render={({ field }) => (
           <FormItem className='w-20'>
             <FormControl>
-              <Input className='' type='number' {...field} onChange={(e)=>field.onChange(Number(e.target.value))}/>
+              <Input className=''  {...field} onChange={(e)=>field.onChange(Number(e.target.value))}/>
             </FormControl>
             <FormMessage />
           </FormItem>

@@ -19,6 +19,8 @@ export default function Page() {
   return payload
 },
   })
+  
+  
   const {can} = usePermission()
   return (
     
@@ -36,7 +38,7 @@ export default function Page() {
               {can("create_customers")&&
               <AddCustomer></AddCustomer>}
               {can("view_customers")?
-              <DataTable columns={columns} data={data!.data} />:
+              <DataTable columns={columns} data={data!.data.data} />:
               <Unauthorized/>
               }
             </div>

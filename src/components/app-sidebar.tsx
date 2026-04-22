@@ -117,7 +117,25 @@ export function AppSidebar() {
       </Link>
     </SidebarMenuButton>
   </SidebarMenuItem> 
-} {can("view_stocks")&&
+} {can("view_customers")&&
+<SidebarMenuItem>
+    <SidebarMenuButton asChild>
+      <Link href="/dashboard/customers">
+        <span>Customers</span>
+      </Link>
+    </SidebarMenuButton>
+  </SidebarMenuItem> 
+}
+{can("view_staff")&&
+<SidebarMenuItem>
+    <SidebarMenuButton asChild>
+      <Link href="/dashboard/staff">
+        <span>Staff</span>
+      </Link>
+    </SidebarMenuButton>
+  </SidebarMenuItem> 
+}
+{can("view_stocks")&&
   <SidebarMenuItem>
     <SidebarMenuButton asChild>
       <Link href="/dashboard/stocks">
@@ -126,6 +144,22 @@ export function AppSidebar() {
     </SidebarMenuButton>
   </SidebarMenuItem>
 } 
+{can("view_orders")&&
+  <SidebarMenuItem>
+    <SidebarMenuButton asChild>
+      <Link href="/dashboard/purchase_orders">
+        <span>Purchase Orders</span>
+      </Link>
+    </SidebarMenuButton>
+  </SidebarMenuItem>
+} 
+  <SidebarMenuItem>
+    <SidebarMenuButton asChild>
+      <Link href="/dashboard/cashier_devices">
+        <span>Cashier Devices</span>
+      </Link>
+    </SidebarMenuButton>
+  </SidebarMenuItem>
 </SidebarMenu>
 
         </SidebarGroup>
